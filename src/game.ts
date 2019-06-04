@@ -9,6 +9,7 @@ export class Game extends ex.Scene {
     }
 
     onInitialize(engine: ex.Engine) {
+
         // Create collision groups for the game
         ex.CollisionGroupManager.create("player");
         ex.CollisionGroupManager.create("enemy");
@@ -28,5 +29,8 @@ export class Game extends ex.Scene {
         engine.add(baddie2);
         engine.add(floor);
         engine.add(otherFloor);
+
+        this.camera.clearAllStrategies();
+        this.camera.strategy.elasticToActor(actor, 0.05, 0.1);
     }
 }
