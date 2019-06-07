@@ -2,10 +2,9 @@ import * as ex from '../Excalibur/build/dist/excalibur.js';
 import { Resources, baddieSpriteSheet } from "./resources";
 
 export class Baddie extends ex.Actor {
-    constructor(x: number, y: number) {
+    constructor(x: number, y: number, public dir: number) {
         super({
             pos: new ex.Vector(x, y),
-            anchor: new ex.Vector(.5, .55),
             body: new ex.Body({
                 collider: new ex.Collider({
                     type: ex.CollisionType.Active,
@@ -32,12 +31,9 @@ export class Baddie extends ex.Actor {
 
 
         // Setup patroling behavior
-        this.actions.moveTo(this.pos.x + 200, this.pos.y, 100)
-                    .moveTo(this.pos.x, this.pos.y, 100)
-                    .moveTo(this.pos.x - 200, this.pos.y, 100)
-                    .moveTo(this.pos.x, this.pos.y, 100)
+        this.actions.moveBy(400 * this.dir, 0, 100)
+                    .moveBy(-400 * this.dir, 0, 100)
                     .repeatForever();
-
     }
 
     onPostUpdate() {
