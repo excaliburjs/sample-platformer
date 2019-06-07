@@ -9,11 +9,11 @@ export class Bot extends ex.Actor {
     constructor(x: number, y: number) {
         super({
             pos: new ex.Vector(x, y),
-            anchor: new ex.Vector(.5, .55),
             body: new ex.Body({
                 collider: new ex.Collider({
                     type: ex.CollisionType.Active,
                     shape: ex.Shape.Box(32, 50),
+                    offset: new ex.Vector(0, 3),
                     group: ex.CollisionGroupManager.groupByName("player")
                 })
             })

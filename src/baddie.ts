@@ -9,6 +9,7 @@ export class Baddie extends ex.Actor {
                 collider: new ex.Collider({
                     type: ex.CollisionType.Active,
                     shape: ex.Shape.Box(32, 50),
+                    offset: new ex.Vector(0, -1),
                     group: ex.CollisionGroupManager.groupByName("enemy")
                 })
             })
