@@ -4,6 +4,10 @@
 
 ## Running locally
 
+* Populate the excalibur submodule
+   - `git submodule init`
+   - `git submoudle update`
+
 * Using [nodejs](https://nodejs.org/en/) and [npm](https://www.npmjs.com/)
 * Run the `npm install` to install dependencies
 * Run the `npm build:excalibur` command to build excalibur
