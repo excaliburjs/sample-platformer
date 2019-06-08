@@ -24,7 +24,7 @@ export class Bot extends ex.Actor {
     onInitialize(engine: ex.Engine) {
         // Initialize actor
 
-        // Setup visuals
+        // Setup visuals, retrieve animations from sprite sheets
         const hurtleft = botSpriteSheet.getAnimationByIndices(engine, [0, 1, 0, 1, 0, 1], 150);
         hurtleft.scale = new ex.Vector(2, 2);
 
@@ -42,42 +42,52 @@ export class Bot extends ex.Actor {
         right.scale = new ex.Vector(2, 2);
         right.flipHorizontal = true;
 
+        // Register animations with actor
         this.addDrawing("hurtleft", hurtleft);
         this.addDrawing("hurtright", hurtright);
         this.addDrawing("idle", idle);
         this.addDrawing("left", left);
         this.addDrawing("right", right);
 
-        this.on('postcollision', (evt) => {
-            if (evt.side === ex.Side.Top) {
-                this.onGround = true;
-            }
-
-            if ((evt.side === ex.Side.Left ||
-                 evt.side === ex.Side.Right) &&
-                evt.other instanceof Baddie) {
-                if (this.vel.x < 0 && !this.hurt) {
-                    this.setDrawing("hurtleft");
-                } 
-                if (this.vel.x >= 0 && !this.hurt) {
-                    this.setDrawing("hurtright");
-                }
-                this.hurt = true;
-                this.hurtTime = 1000;
-            }
-        });
-
+        // onPostCollision is an event, not a lifecycle meaning it can be subscribed to by other things
+        this.on('postcollision', this.onPostCollision);
     }
 
+    onPostCollision(evt: ex.PostCollisionEvent) {
+        // Bot has collided with the top of another collider
+        if (evt.side === ex.Side.Top) {
+            this.onGround = true;
+        }
+
+        // Bot has collided on the side, display hurt animation
+        if ((evt.side === ex.Side.Left ||
+             evt.side === ex.Side.Right) &&
+            evt.other instanceof Baddie) {
+            if (this.vel.x < 0 && !this.hurt) {
+                this.setDrawing("hurtleft");
+            } 
+            if (this.vel.x >= 0 && !this.hurt) {
+                this.setDrawing("hurtright");
+            }
+            this.hurt = true;
+            this.hurtTime = 1000;
+        }
+    }
+
+    // After main update, once per frame execute this code
     onPostUpdate(engine: ex.Engine, delta: number) {
+        // If hurt, count down
         if (this.hurtTime >= 0 && this.hurt) {
             this.hurtTime -= delta;
             if (this.hurtTime < 0) {
                 this.hurt = false;
             }
         }
+
+        // Reset x velocity
         this.vel.x = 0;
 
+        // Player input
         if(engine.input.keyboard.isHeld(ex.Input.Keys.Left)) {
             this.vel.x = -150;
         }
@@ -90,6 +100,8 @@ export class Bot extends ex.Actor {
             this.vel.y = -400;
             this.onGround = false;
         }
+
+        // Change animation based on velocity
         if (this.vel.x < 0 && !this.hurt) {
             this.setDrawing("left");
         } 

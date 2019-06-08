@@ -17,6 +17,7 @@ export class Floor extends ex.Actor {
         });
     }
 
+    // Custom draw in current actor transform
     onPostDraw(ctx: CanvasRenderingContext2D) {
         for (let i = 0; i < this.cols; i++) {
             for (let j = 0; j < this.rows; j++) {

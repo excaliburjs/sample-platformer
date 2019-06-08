@@ -1,5 +1,5 @@
 import * as ex from '../Excalibur/build/dist/excalibur.js';
-import { Resources, baddieSpriteSheet } from "./resources";
+import { baddieSpriteSheet } from "./resources";
 import { Bot } from './bot';
 
 export class Baddie extends ex.Actor {
@@ -28,6 +28,7 @@ export class Baddie extends ex.Actor {
         right.scale = new ex.Vector(2, 2);
         right.flipHorizontal = true;
 
+        // Register animation
         this.addDrawing("left", left)
         this.addDrawing("right", right);
 
@@ -37,17 +38,25 @@ export class Baddie extends ex.Actor {
                     .moveBy(-400 * this.dir, 0, 100)
                     .repeatForever();
 
-        this.on('postcollision', (evt) => {
-            if (evt.other instanceof Bot && evt.side === ex.Side.Bottom) {
-                this.actions.clearActions();
-                this.body.collider.type = ex.CollisionType.PreventCollision;
-                this.vel = new ex.Vector(0, -300);
-                this.acc = ex.Physics.acc;
-                this.rx = 2;
-            }
-        });
+        // Handle being stomped by the player
+        this.on('postcollision', this.onPostCollision);
     }
 
+    onPostCollision(evt: ex.PostCollisionEvent) {
+        if (evt.other instanceof Bot && evt.side === ex.Side.Bottom) {
+            // Clear patrolling
+            this.actions.clearActions();
+            // Remove ability to collide
+            this.body.collider.type = ex.CollisionType.PreventCollision;
+
+            // Launch into air with rotation
+            this.vel = new ex.Vector(0, -300);
+            this.acc = ex.Physics.acc;
+            this.rx = 2;
+        }
+    }
+
+    // Change animation based on velocity 
     onPostUpdate() {
         if (this.vel.x < 0) {
             this.setDrawing("left");

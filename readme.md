@@ -1,5 +1,7 @@
 # Excalibur Platformer Sample
 
+![sample-animation](./assets/sample.gif)
+
 ## Running locally
 
 * Using [nodejs](https://nodejs.org/en/) and [npm](https://www.npmjs.com/)

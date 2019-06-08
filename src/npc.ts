@@ -22,6 +22,8 @@ export class NPC extends ex.Actor {
     // OnInitialize is called before the 1st actor update
     onInitialize(engine: ex.Engine) {
         // Initialize actor
+
+        // Set the z-index to be behind everything
         this.z = -1;
 
         // Setup visuals
@@ -42,6 +44,7 @@ export class NPC extends ex.Actor {
         right.scale = new ex.Vector(2, 2);
         right.flipHorizontal = true;
 
+        // Register drawings
         this.addDrawing("hurtleft", hurtleft);
         this.addDrawing("hurtright", hurtright);
         this.addDrawing("idle", idle);
@@ -67,6 +70,7 @@ export class NPC extends ex.Actor {
         }
     }
 
+    // Custom draw after local tranform, draws word bubble
     onPostDraw(ctx: CanvasRenderingContext2D) {
         npcSprite.draw(ctx, -10, -100);
     }
