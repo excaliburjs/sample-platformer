@@ -1,4 +1,4 @@
-import * as ex from '../Excalibur/build/dist/excalibur.js';
+import * as ex from 'excalibur';
 
 const botFile = require('../res/excalibot.png');
 const botRedFile = require('../res/excalibot-red.png');

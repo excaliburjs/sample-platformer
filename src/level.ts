@@ -1,4 +1,4 @@
-import * as ex from '../Excalibur/build/dist/excalibur.js';
+import * as ex from 'excalibur';
 import { Baddie } from './baddie';
 import { Bot } from './bot';
 import { Floor } from './floor';

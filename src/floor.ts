@@ -1,4 +1,4 @@
-import * as ex from '../Excalibur/build/dist/excalibur.js';
+import * as ex from 'excalibur';
 import { blockSprite } from './resources';
 
 export class Floor extends ex.Actor {
