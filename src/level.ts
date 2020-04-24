@@ -25,7 +25,7 @@ export class Level extends ex.Scene {
         const npc = new NPC(400, 170);
         
         const floor = new Floor(0, 300, 15, 1);
-        const otherFloor = new Floor(engine.halfCanvasWidth + 50, 200, 5, 1);
+        const otherFloor = new Floor(engine.halfDrawWidth + 50, 200, 5, 1);
 
         engine.add(actor);
         engine.add(npc);
