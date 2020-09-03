@@ -12,7 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "excalibur": "0.24.3"
+    "excalibur": "0.24.4"
   },
   "devDependencies": {
     "file-loader": "4.3.0",
