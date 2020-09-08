@@ -1,5 +1,5 @@
 import * as ex from 'excalibur';
-import { baddieSpriteSheet } from "./resources";
+import { baddieSpriteSheet, Resources } from "./resources";
 import { Bot } from './bot';
 
 export class Baddie extends ex.Actor {
@@ -44,6 +44,7 @@ export class Baddie extends ex.Actor {
 
     onPostCollision(evt: ex.PostCollisionEvent) {
         if (evt.other instanceof Bot && evt.side === ex.Side.Bottom) {
+            Resources.gotEm.play(.1);
             // Clear patrolling
             this.actions.clearActions();
             // Remove ability to collide

@@ -1,9 +1,10 @@
 import * as ex from 'excalibur';
-import { botSpriteSheet } from './resources';
+import { botSpriteSheet, Resources } from './resources';
 import { Baddie } from './baddie';
 
 export class Bot extends ex.Actor {
     public onGround = true;
+    public jumped = false;
     public hurt = false;
     public hurtTime: number = 0;
     constructor(x: number, y: number) {
@@ -71,11 +72,12 @@ export class Bot extends ex.Actor {
             }
             this.hurt = true;
             this.hurtTime = 1000;
+            Resources.hit.play(.1);
         }
     }
 
     // After main update, once per frame execute this code
-    onPostUpdate(engine: ex.Engine, delta: number) {
+    onPreUpdate(engine: ex.Engine, delta: number) {
         // If hurt, count down
         if (this.hurtTime >= 0 && this.hurt) {
             this.hurtTime -= delta;
@@ -99,6 +101,7 @@ export class Bot extends ex.Actor {
         if(engine.input.keyboard.isHeld(ex.Input.Keys.Up) && this.onGround) {
             this.vel.y = -400;
             this.onGround = false;
+            Resources.jump.play(.1);
         }
 
         // Change animation based on velocity
