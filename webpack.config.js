@@ -23,7 +23,8 @@ module.exports = {
                 use: [{
                   loader: 'file-loader',
                   options: {
-                    emitFile: true
+                    emitFile: true,
+                    esModule: false
                   }
                 }]
               }
