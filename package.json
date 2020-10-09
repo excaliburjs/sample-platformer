@@ -15,7 +15,7 @@
     "excalibur": "0.24.5"
   },
   "devDependencies": {
-    "file-loader": "6.1.0",
+    "file-loader": "6.1.1",
     "ts-loader": "8.0.4",
     "typescript": "4.0.3",
     "webpack": "4.44.2",
