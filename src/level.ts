@@ -5,8 +5,8 @@ import { Floor } from './floor';
 import { NPC } from './npc';
 
 export class Level extends ex.Scene {
-    constructor(engine: ex.Engine) {
-        super(engine);
+    constructor() {
+        super();
     }
 
     onInitialize(engine: ex.Engine) {

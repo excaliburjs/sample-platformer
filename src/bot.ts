@@ -9,15 +9,11 @@ export class Bot extends ex.Actor {
     public hurtTime: number = 0;
     constructor(x: number, y: number) {
         super({
+            name: 'Bot',
             pos: new ex.Vector(x, y),
-            body: new ex.Body({
-                collider: new ex.Collider({
-                    type: ex.CollisionType.Active,
-                    shape: ex.Shape.Box(32, 50),
-                    offset: new ex.Vector(0, 3),
-                    group: ex.CollisionGroupManager.groupByName("player")
-                })
-            })
+            collisionType: ex.CollisionType.Active,
+            collisionGroup: ex.CollisionGroupManager.groupByName("player"),
+            collider: ex.Shape.Box(32, 50, ex.Vector.Half, ex.vec(0, 3))
         });
     }
 
@@ -25,38 +21,39 @@ export class Bot extends ex.Actor {
     onInitialize(engine: ex.Engine) {
         // Initialize actor
 
-        // Setup visuals, retrieve animations from sprite sheets
-        const hurtleft = botSpriteSheet.getAnimationByIndices(engine, [0, 1, 0, 1, 0, 1], 150);
+        // Setup visuals
+        const hurtleft = ex.Animation.fromSpriteSheet(botSpriteSheet, [0, 1, 0, 1, 0, 1], 150);
         hurtleft.scale = new ex.Vector(2, 2);
 
-        const hurtright = botSpriteSheet.getAnimationByIndices(engine, [0, 1, 0, 1, 0, 1], 150);
+        const hurtright = ex.Animation.fromSpriteSheet(botSpriteSheet, [0, 1, 0, 1, 0, 1], 150);
         hurtright.scale = new ex.Vector(2, 2);
         hurtright.flipHorizontal = true;
 
-        const idle = botSpriteSheet.getAnimationByIndices(engine, [2, 3], 800);
+        const idle = ex.Animation.fromSpriteSheet(botSpriteSheet, [2, 3], 800);
         idle.scale = new ex.Vector(2, 2);
 
-        const left = botSpriteSheet.getAnimationByIndices(engine, [3, 4, 5, 6, 7], 100);
+        const left = ex.Animation.fromSpriteSheet(botSpriteSheet, [3, 4, 5, 6, 7], 100);
         left.scale = new ex.Vector(2, 2);
-        
-        const right = botSpriteSheet.getAnimationByIndices(engine, [3, 4, 5, 6, 7], 100);
+
+        const right = ex.Animation.fromSpriteSheet(botSpriteSheet, [3, 4, 5, 6, 7], 100);
         right.scale = new ex.Vector(2, 2);
-        right.flipHorizontal = true;
+        right.flipHorizontal = true;;
 
         // Register animations with actor
-        this.addDrawing("hurtleft", hurtleft);
-        this.addDrawing("hurtright", hurtright);
-        this.addDrawing("idle", idle);
-        this.addDrawing("left", left);
-        this.addDrawing("right", right);
+        this.graphics.add("hurtleft", hurtleft);
+        this.graphics.add("hurtright", hurtright);
+        this.graphics.add("idle", idle);
+        this.graphics.add("left", left);
+        this.graphics.add("right", right);
 
         // onPostCollision is an event, not a lifecycle meaning it can be subscribed to by other things
         this.on('postcollision', this.onPostCollision);
     }
 
     onPostCollision(evt: ex.PostCollisionEvent) {
-        // Bot has collided with the top of another collider
-        if (evt.side === ex.Side.Top) {
+        // Bot has collided with it's Top of another collider
+        console.log(evt.other.name);
+        if (evt.side === ex.Side.Bottom) {
             this.onGround = true;
         }
 
@@ -65,10 +62,10 @@ export class Bot extends ex.Actor {
              evt.side === ex.Side.Right) &&
             evt.other instanceof Baddie) {
             if (this.vel.x < 0 && !this.hurt) {
-                this.setDrawing("hurtleft");
+                this.graphics.use("hurtleft");
             } 
             if (this.vel.x >= 0 && !this.hurt) {
-                this.setDrawing("hurtright");
+                this.graphics.use("hurtright");
             }
             this.hurt = true;
             this.hurtTime = 1000;
@@ -106,13 +103,13 @@ export class Bot extends ex.Actor {
 
         // Change animation based on velocity
         if (this.vel.x < 0 && !this.hurt) {
-            this.setDrawing("left");
+            this.graphics.use("left");
         } 
         if (this.vel.x > 0 && !this.hurt) {
-            this.setDrawing("right");
+            this.graphics.use("right");
         }
         if (this.vel.x === 0 && !this.hurt){
-            this.setDrawing("idle")
+            this.graphics.use("idle")
         }
     }
 }
