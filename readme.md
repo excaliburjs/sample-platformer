@@ -1,5 +1,7 @@
 # Excalibur Platformer Sample
 
+Play sample [here](https://excaliburjs.com/sample-platformer)
+
 ![sample-animation](./assets/sample.gif)
 
 ## Running locally
