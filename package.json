@@ -7,6 +7,7 @@
     "build:prod": "webpack --mode production",
     "build:dev": "webpack --mode development",
     "dev": "webpack-dev-server --mode development --open",
+    "start": "webpack-dev-server --mode development --open",
     "test": "npm run build:prod && ex-test -d ./ -t ./test/integration/ex-tests.js"
   },
   "author": "",

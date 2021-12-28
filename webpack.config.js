@@ -4,6 +4,7 @@ module.exports = {
     entry: './src/main.ts',
     devtool: 'source-map',
     devServer: {
+        port: 9000,
         devMiddleware: {
             writeToDisk: true
         },

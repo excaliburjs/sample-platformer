@@ -8,7 +8,7 @@
 * Run the `npm install` to install dependencies
 * Run the `npm run dev` to run the development server to test out changes
    * [Webpack](https://webpack.js.org/) will build the [typescript](https://www.typescriptlang.org/) into javascript
-   * [Webpack dev server](https://webpack.js.org/configuration/dev-server/) will host the script in a little server on http://localhost:8082/
+   * [Webpack dev server](https://webpack.js.org/configuration/dev-server/) will host the script in a little server on http://localhost:9000/
 
 ## Building bundles
 
