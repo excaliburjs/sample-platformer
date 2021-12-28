@@ -14,7 +14,8 @@ const engine = new ex.Engine({
 ex.Physics.acc = new ex.Vector(0, 800);
 
 // Setup first level as a custom scene
-engine.add('level', new Level());
+const level = new Level();
+engine.add('level', level);
 engine.goToScene('level');
 
 // Game events to handle
@@ -34,3 +35,4 @@ engine.start(loader).then(() => {
 
 // For test hook
 (window as any).engine = engine;
+(window as any).level = level;

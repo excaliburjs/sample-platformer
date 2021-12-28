@@ -29,12 +29,19 @@ export class Baddie extends ex.Actor {
         this.graphics.add("right", right);
         this.graphics.use("left");
 
+        if ((window as any).__TESTING) {
+            left.pause();
+        }
+
         // Setup patroling behavior
-        this.actions.delay(1000)
-                    .repeatForever(ctx => ctx
-                        .moveBy(400 * this.dir, 0, 100)
-                        .moveBy(-400 * this.dir, 0, 100)
-        );
+
+        // For the test harness to be predicable
+        if (!(window as any).__TESTING) {
+            this.actions.delay(1000)
+                        .repeatForever(ctx => ctx
+                            .moveBy(400 * this.dir, 0, 100)
+                            .moveBy(-400 * this.dir, 0, 100));
+        }
 
         // Handle being stomped by the player
         this.on('postcollision', this.onPostCollision);

@@ -34,8 +34,11 @@ export class Level extends ex.Scene {
         engine.add(floor);
         engine.add(otherFloor);
 
-        // Create camera strategy
-        this.camera.clearAllStrategies();
-        this.camera.strategy.elasticToActor(actor, 0.05, 0.1);
+        // For the test harness to be predicable
+        if (!(window as any).__TESTING) {
+            // Create camera strategy
+            this.camera.clearAllStrategies();
+            this.camera.strategy.elasticToActor(actor, 0.05, 0.1);
+        }
     }
 }

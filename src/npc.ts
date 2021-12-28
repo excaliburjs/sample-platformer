@@ -47,10 +47,14 @@ export class NPC extends ex.Actor {
         this.graphics.add("right", right);
 
         // Setup patroling behavior
-        this.actions.delay(1000)
-                    .repeatForever(ctx => ctx
-                        .moveBy(100, 0, 20)
-                        .moveBy(-100, 0, 20))
+
+        // For the test harness to be predicable
+        if (!(window as any).__TESTING) {
+            this.actions.delay(1000)
+                        .repeatForever(ctx => ctx
+                            .moveBy(100, 0, 20)
+                            .moveBy(-100, 0, 20));
+        }
 
 
         // Custom draw after local tranform, draws word bubble
