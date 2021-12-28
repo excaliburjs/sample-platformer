@@ -4,6 +4,9 @@ module.exports = {
     entry: './src/main.ts',
     devtool: 'source-map',
     devServer: {
+        devMiddleware: {
+            writeToDisk: true
+        },
         static: {
             directory: path.resolve(__dirname)
         }
