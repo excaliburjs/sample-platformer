@@ -47,7 +47,7 @@ export class Bot extends ex.Actor {
         this.graphics.add("right", right);
 
         // onPostCollision is an event, not a lifecycle meaning it can be subscribed to by other things
-        this.on('postcollision', this.onPostCollision);
+        this.on('postcollision', (evt) => this.onPostCollision(evt));
     }
 
     onPostCollision(evt: ex.PostCollisionEvent) {

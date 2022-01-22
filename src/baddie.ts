@@ -44,7 +44,7 @@ export class Baddie extends ex.Actor {
         }
 
         // Handle being stomped by the player
-        this.on('postcollision', this.onPostCollision);
+        this.on('postcollision', (evt) => this.onPostCollision(evt));
     }
 
     onPostCollision(evt: ex.PostCollisionEvent) {
