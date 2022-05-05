@@ -1,11 +1,11 @@
 import * as ex from "excalibur";
 import { TiledMapResource } from "@excaliburjs/plugin-tiled";
 
-const jumpSound = require("../res/jump.wav");
-const hitSound = require("../res/hurt.wav");
-const gotEmSound = require("../res/gottem.wav");
-const levelFile = require("../res/level.tmx");
-const tileMapFile = require("../res/tilemap.png");
+import jumpSound from "../res/jump.wav";
+import hitSound from "../res/hurt.wav";
+import gotEmSound from "../res/gottem.wav";
+import levelFile from "../res/level.tmx";
+import tileMapFile from "../res/tilemap.png";
 
 export const Resources = {
   tilemap: new ex.ImageSource(tileMapFile),
