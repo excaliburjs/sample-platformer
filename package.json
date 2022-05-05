@@ -13,6 +13,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@excaliburjs/plugin-tiled": "^0.25.3",
     "excalibur": "0.25.3"
   },
   "devDependencies": {
