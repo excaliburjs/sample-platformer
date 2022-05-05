@@ -3,10 +3,14 @@ import { Baddie } from "./baddie";
 import { Player } from "./player";
 import { NPC } from "./npc";
 import { Resources } from "./resources";
+import { Config } from "./config";
+import { addPatrolToScene } from "./behaviors/patrol";
 
 export class Level extends ex.Scene {
   constructor() {
     super();
+
+    addPatrolToScene(this);
   }
 
   onInitialize(engine: ex.Engine) {
@@ -51,6 +55,10 @@ export class Level extends ex.Scene {
 
     // Create camera strategy
     this.camera.clearAllStrategies();
-    this.camera.strategy.elasticToActor(player, 0.05, 0.1);
+    this.camera.strategy.elasticToActor(
+      player,
+      Config.cameraElasticity,
+      Config.cameraFriction
+    );
   }
 }

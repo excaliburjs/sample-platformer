@@ -1,10 +1,10 @@
 import * as ex from "excalibur";
-import { tilemapSpriteSheet } from "./resources";
+import { addPatrolToActor } from "./behaviors/patrol";
+import { Config } from "./config";
+import { collisionGroups, makeCharacterCollider } from "./physics";
+import { NpcGraphics } from "./resources";
 
 export class NPC extends ex.Actor {
-  public onGround = true;
-  public hurt = false;
-  public hurtTime: number = 0;
   constructor(
     x: number,
     y: number,
@@ -13,49 +13,26 @@ export class NPC extends ex.Actor {
   ) {
     super({
       pos: new ex.Vector(x, y),
+      collisionGroup: collisionGroups.player(),
       collisionType: ex.CollisionType.Active,
-      collisionGroup: ex.CollisionGroupManager.groupByName("player"),
-      collider: ex.Shape.Box(21, 21, ex.Vector.Half, ex.vec(0, 0)),
+      collider: makeCharacterCollider(),
+    });
+
+    addPatrolToActor(this, {
+      delay: Config.npcPatrolDelay,
+      speed: Config.npcPatrolSpeed,
+      from: ex.vec(x + patrolLeft, y),
+      to: ex.vec(x + patrolRight, y),
     });
   }
 
-  // OnInitialize is called before the 1st actor update
   onInitialize() {
-    // Initialize actor
-
     // Set the z-index to be behind everything
     this.z = -1;
 
-    // Setup visuals
-    const idle = tilemapSpriteSheet.getSprite(28, 13)!;
-
-    const left = ex.Animation.fromSpriteSheet(
-      tilemapSpriteSheet,
-      [418, 419],
-      200
-    );
-
-    const right = ex.Animation.fromSpriteSheet(
-      tilemapSpriteSheet,
-      [418, 419],
-      200
-    );
-    right.flipHorizontal = true;
-
-    // Register drawings
-    this.graphics.add("idle", idle);
-    this.graphics.add("left", left);
-    this.graphics.add("right", right);
-
-    // Setup patroling behavior
-    const initialPos = this.pos.clone();
-    this.actions.delay(1000).repeatForever((ctx) =>
-      ctx
-        .moveTo(initialPos.x + this.patrolLeft, initialPos.y, 40)
-        .delay(1000)
-        .moveTo(initialPos.x + this.patrolRight, initialPos.y, 40)
-        .delay(1000)
-    );
+    this.graphics.add("idle", NpcGraphics.idle);
+    this.graphics.add("left", NpcGraphics.left);
+    this.graphics.add("right", NpcGraphics.right);
   }
 
   onPostUpdate() {

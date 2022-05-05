@@ -7,7 +7,7 @@ const gotEmSound = require("../res/gottem.wav");
 const levelFile = require("../res/level.tmx");
 const tileMapFile = require("../res/tilemap.png");
 
-const Resources = {
+export const Resources = {
   tilemap: new ex.ImageSource(tileMapFile),
   jump: new ex.Sound(jumpSound),
   hit: new ex.Sound(hitSound),
@@ -15,9 +15,13 @@ const Resources = {
   level: new TiledMapResource(levelFile),
 };
 
-const loader = new ex.Loader();
+export const loader = new ex.Loader();
 
-const tilemapSpriteSheet = ex.SpriteSheet.fromImageSource({
+for (const res in Resources) {
+  loader.addResource((Resources as any)[res]);
+}
+
+export const tilemapSpriteSheet = ex.SpriteSheet.fromImageSource({
   image: Resources.tilemap,
   grid: {
     columns: 30,
@@ -27,8 +31,23 @@ const tilemapSpriteSheet = ex.SpriteSheet.fromImageSource({
   },
 });
 
-for (const res in Resources) {
-  loader.addResource((Resources as any)[res]);
-}
+export const BaddieGraphics = {
+  left: ex.Animation.fromSpriteSheet(tilemapSpriteSheet, [229, 230, 231], 200),
+  right: ex.Animation.fromSpriteSheet(tilemapSpriteSheet, [229, 230, 231], 200),
+  dead: tilemapSpriteSheet.getSprite(22, 7)!,
+};
+BaddieGraphics.left.flipHorizontal = true;
 
-export { Resources, loader, tilemapSpriteSheet };
+export const PlayerGraphics = {
+  idle: tilemapSpriteSheet.getSprite(19, 0)!,
+  left: ex.Animation.fromSpriteSheet(tilemapSpriteSheet, [28, 29], 100),
+  right: ex.Animation.fromSpriteSheet(tilemapSpriteSheet, [28, 29], 100),
+};
+PlayerGraphics.left.flipHorizontal = true;
+
+export const NpcGraphics = {
+  idle: tilemapSpriteSheet.getSprite(28, 13)!,
+  left: ex.Animation.fromSpriteSheet(tilemapSpriteSheet, [418, 419], 200),
+  right: ex.Animation.fromSpriteSheet(tilemapSpriteSheet, [418, 419], 200),
+};
+NpcGraphics.right.flipHorizontal = true;
