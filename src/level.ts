@@ -1,7 +1,6 @@
 import * as ex from "excalibur";
 import { Baddie } from "./baddie";
-import { Bot } from "./bot";
-import { Floor } from "./floor";
+import { Player } from "./player";
 import { NPC } from "./npc";
 import { Resources } from "./resources";
 
@@ -21,8 +20,20 @@ export class Level extends ex.Scene {
 
     const gameLayer = Resources.level.data.getObjectLayerByName("Game");
     const playerObject = gameLayer.getObjectByType("Player")!;
-    const player = new Bot(playerObject.x, playerObject.y);
+    const player = new Player(playerObject.x, playerObject.y);
     this.add(player);
+
+    const npcObjects = gameLayer.getObjectsByType("NPC");
+
+    for (const npcObject of npcObjects) {
+      const npc = new NPC(
+        npcObject.x,
+        npcObject.y,
+        npcObject.getProperty<number>("patrol_left")?.value ?? 0,
+        npcObject.getProperty<number>("patrol_right")?.value ?? 0
+      );
+      this.add(npc);
+    }
 
     const baddieLayer = Resources.level.data.getObjectLayerByName("Baddies");
     const baddieObjects = baddieLayer.getObjectsByType("Baddie");

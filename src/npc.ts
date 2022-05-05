@@ -5,12 +5,17 @@ export class NPC extends ex.Actor {
   public onGround = true;
   public hurt = false;
   public hurtTime: number = 0;
-  constructor(x: number, y: number) {
+  constructor(
+    x: number,
+    y: number,
+    public patrolLeft: number,
+    public patrolRight: number
+  ) {
     super({
       pos: new ex.Vector(x, y),
       collisionType: ex.CollisionType.Active,
       collisionGroup: ex.CollisionGroupManager.groupByName("player"),
-      collider: ex.Shape.Box(21, 21, ex.Vector.Half, ex.vec(0, 3)),
+      collider: ex.Shape.Box(21, 21, ex.Vector.Half, ex.vec(0, 0)),
     });
   }
 
@@ -22,45 +27,35 @@ export class NPC extends ex.Actor {
     this.z = -1;
 
     // Setup visuals
-    const hurtleft = ex.Animation.fromSpriteSheet(
-      tilemapSpriteSheet,
-      [0, 1, 0, 1, 0, 1],
-      150
-    );
-
-    const hurtright = ex.Animation.fromSpriteSheet(
-      tilemapSpriteSheet,
-      [0, 1, 0, 1, 0, 1],
-      150
-    );
-    hurtright.flipHorizontal = true;
-
-    const idle = ex.Animation.fromSpriteSheet(tilemapSpriteSheet, [2, 3], 800);
+    const idle = tilemapSpriteSheet.getSprite(28, 13)!;
 
     const left = ex.Animation.fromSpriteSheet(
       tilemapSpriteSheet,
-      [3, 4, 5, 6, 7],
-      100
+      [418, 419],
+      200
     );
 
     const right = ex.Animation.fromSpriteSheet(
       tilemapSpriteSheet,
-      [3, 4, 5, 6, 7],
-      100
+      [418, 419],
+      200
     );
     right.flipHorizontal = true;
 
     // Register drawings
-    this.graphics.add("hurtleft", hurtleft);
-    this.graphics.add("hurtright", hurtright);
     this.graphics.add("idle", idle);
     this.graphics.add("left", left);
     this.graphics.add("right", right);
 
     // Setup patroling behavior
-    this.actions
-      .delay(1000)
-      .repeatForever((ctx) => ctx.moveBy(100, 0, 20).moveBy(-100, 0, 20));
+    const initialPos = this.pos.clone();
+    this.actions.delay(1000).repeatForever((ctx) =>
+      ctx
+        .moveTo(initialPos.x + this.patrolLeft, initialPos.y, 40)
+        .delay(1000)
+        .moveTo(initialPos.x + this.patrolRight, initialPos.y, 40)
+        .delay(1000)
+    );
   }
 
   onPostUpdate() {

@@ -1,6 +1,6 @@
 import * as ex from "excalibur";
 import { tilemapSpriteSheet, Resources } from "./resources";
-import { Bot } from "./bot";
+import { Player } from "./player";
 
 export class Baddie extends ex.Actor {
   constructor(
@@ -59,7 +59,7 @@ export class Baddie extends ex.Actor {
   }
 
   onPostCollision(evt: ex.PostCollisionEvent) {
-    if (evt.other instanceof Bot && evt.side === ex.Side.Top) {
+    if (evt.other instanceof Player && evt.side === ex.Side.Top) {
       Resources.gotEm.play(0.1);
       // Clear patrolling
       this.actions.clearActions();

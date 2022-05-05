@@ -56,7 +56,11 @@
   <object id="4" name="Player" type="Player" x="351.333" y="176">
    <point/>
   </object>
-  <object id="5" name="NPC" type="Npc" x="254" y="75.3333">
+  <object id="5" name="NPC1" type="NPC" x="170" y="116">
+   <properties>
+    <property name="patrol_left" type="int" value="-21"/>
+    <property name="patrol_right" type="int" value="21"/>
+   </properties>
    <point/>
   </object>
  </objectgroup>

@@ -2,14 +2,14 @@ import * as ex from "excalibur";
 import { tilemapSpriteSheet, Resources } from "./resources";
 import { Baddie } from "./baddie";
 
-export class Bot extends ex.Actor {
+export class Player extends ex.Actor {
   public onGround = true;
   public jumped = false;
   public hurt = false;
   public hurtTime: number = 0;
   constructor(x: number, y: number) {
     super({
-      name: "Bot",
+      name: "Player",
       pos: new ex.Vector(x, y),
       collisionType: ex.CollisionType.Active,
       collisionGroup: ex.CollisionGroupManager.groupByName("player"),
@@ -17,16 +17,11 @@ export class Bot extends ex.Actor {
     });
   }
 
-  // OnInitialize is called before the 1st actor update
-  onInitialize(engine: ex.Engine) {
-    // Initialize actor
-
-    // Setup visuals
+  onInitialize() {
     const hurtleft = tilemapSpriteSheet.getSprite(23, 0)!;
     hurtleft.flipHorizontal = true;
 
     const hurtright = tilemapSpriteSheet.getSprite(23, 0)!;
-
     const idle = tilemapSpriteSheet.getSprite(19, 0)!;
 
     const left = ex.Animation.fromSpriteSheet(
@@ -42,14 +37,12 @@ export class Bot extends ex.Actor {
       100
     );
 
-    // Register animations with actor
     this.graphics.add("hurtleft", hurtleft);
     this.graphics.add("hurtright", hurtright);
     this.graphics.add("idle", idle);
     this.graphics.add("left", left);
     this.graphics.add("right", right);
 
-    // onPostCollision is an event, not a lifecycle meaning it can be subscribed to by other things
     this.on("postcollision", (evt) => this.onPostCollision(evt));
   }
 
