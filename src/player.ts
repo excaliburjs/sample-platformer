@@ -49,7 +49,7 @@ export class Player extends ex.Actor {
     if (engine.input.keyboard.wasPressed(ex.Input.Keys.Up) && this.onGround) {
       this.vel.y = Config.playerJumpVelocity;
       this.onGround = false;
-      Resources.jump.play(0.1);
+      Resources.jump.play(Config.fxVolume);
     }
   }
 

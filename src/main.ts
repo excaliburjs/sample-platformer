@@ -1,4 +1,4 @@
-import { Color, Engine } from "excalibur";
+import { Color, DisplayMode, Engine } from "excalibur";
 import { loader } from "./resources";
 import { Level } from "./level";
 import "./physics";
@@ -8,6 +8,7 @@ const game = new Engine({
   width: 600,
   height: 400,
   antialiasing: false,
+  displayMode: DisplayMode.FitScreen,
 });
 
 await game.start(loader);

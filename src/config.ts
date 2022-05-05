@@ -1,4 +1,5 @@
 export const Config = {
+  fxVolume: 0.5,
   baddiePatrolDelay: 1000,
   baddiePatrolSpeed: 100,
   baddieDeathSpiralVelocity: -300,

@@ -42,7 +42,7 @@ export class Baddie extends ex.Actor {
 
   onPostCollision(evt: ex.PostCollisionEvent) {
     if (evt.other instanceof Player && evt.side === ex.Side.Top) {
-      Resources.gotEm.play(0.1);
+      Resources.gotEm.play(Config.fxVolume);
 
       // Stop patrolling
       this.get(PatrolComponent)!.stop();
