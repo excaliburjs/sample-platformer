@@ -40,11 +40,9 @@ export class NPC extends ex.Actor {
   onPostUpdate() {
     if (this.vel.x < 0) {
       this.graphics.use("left");
-    }
-    if (this.vel.x > 0) {
+    } else if (this.vel.x > 0) {
       this.graphics.use("right");
-    }
-    if (this.vel.x === 0) {
+    } else if (this.vel.x === 0) {
       this.graphics.use("idle");
     }
   }

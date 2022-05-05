@@ -17,6 +17,7 @@ export class PatrolComponent extends ex.Component<"patrol"> {
   public to = ex.Vector.Zero;
 
   private _isInitialized = false;
+  private _actions: ActionsComponent | undefined;
 
   constructor(public patrolArgs?: PatrolComponentArgs) {
     super();
@@ -34,7 +35,7 @@ export class PatrolComponent extends ex.Component<"patrol"> {
       return;
     }
 
-    console.log("initializePatrol:", actions, this);
+    this._actions = actions;
 
     actions
       .delay(this.delay)
@@ -47,6 +48,12 @@ export class PatrolComponent extends ex.Component<"patrol"> {
       );
 
     this._isInitialized = true;
+  }
+
+  public stop() {
+    if (this._isInitialized) {
+      this._actions?.clearActions();
+    }
   }
 }
 

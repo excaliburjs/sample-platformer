@@ -44,8 +44,8 @@ export class Baddie extends ex.Actor {
     if (evt.other instanceof Player && evt.side === ex.Side.Top) {
       Resources.gotEm.play(0.1);
 
-      // Clear patrolling
-      this.removeComponent(this.get(PatrolComponent)!.type);
+      // Stop patrolling
+      this.get(PatrolComponent)!.stop();
 
       // Remove ability to collide
       this.body.collisionType = ex.CollisionType.PreventCollision;
