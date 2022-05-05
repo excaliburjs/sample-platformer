@@ -1,4 +1,4 @@
-import * as ex from "excalibur";
+import { ImageSource, Loader, Sound, SpriteSheet, Animation } from "excalibur";
 import { TiledMapResource } from "@excaliburjs/plugin-tiled";
 
 import jumpSound from "../res/jump.wav";
@@ -8,20 +8,20 @@ import levelFile from "../res/level.tmx";
 import tileMapFile from "../res/tilemap.png";
 
 export const Resources = {
-  tilemap: new ex.ImageSource(tileMapFile),
-  jump: new ex.Sound(jumpSound),
-  hit: new ex.Sound(hitSound),
-  gotEm: new ex.Sound(gotEmSound),
+  tilemap: new ImageSource(tileMapFile),
+  jump: new Sound(jumpSound),
+  hit: new Sound(hitSound),
+  gotEm: new Sound(gotEmSound),
   level: new TiledMapResource(levelFile),
 };
 
-export const loader = new ex.Loader();
+export const loader = new Loader();
 
 for (const res in Resources) {
   loader.addResource((Resources as any)[res]);
 }
 
-export const tilemapSpriteSheet = ex.SpriteSheet.fromImageSource({
+export const tilemapSpriteSheet = SpriteSheet.fromImageSource({
   image: Resources.tilemap,
   grid: {
     columns: 30,
@@ -32,23 +32,23 @@ export const tilemapSpriteSheet = ex.SpriteSheet.fromImageSource({
 });
 
 export const BaddieGraphics = {
-  left: ex.Animation.fromSpriteSheet(tilemapSpriteSheet, [229, 230, 231], 200),
-  right: ex.Animation.fromSpriteSheet(tilemapSpriteSheet, [229, 230, 231], 200),
+  left: Animation.fromSpriteSheet(tilemapSpriteSheet, [229, 230, 231], 200),
+  right: Animation.fromSpriteSheet(tilemapSpriteSheet, [229, 230, 231], 200),
   dead: tilemapSpriteSheet.getSprite(22, 7)!,
 };
 BaddieGraphics.left.flipHorizontal = true;
 
 export const PlayerGraphics = {
   idle: tilemapSpriteSheet.getSprite(19, 0)!,
-  left: ex.Animation.fromSpriteSheet(tilemapSpriteSheet, [28, 29], 100),
-  right: ex.Animation.fromSpriteSheet(tilemapSpriteSheet, [28, 29], 100),
+  left: Animation.fromSpriteSheet(tilemapSpriteSheet, [28, 29], 100),
+  right: Animation.fromSpriteSheet(tilemapSpriteSheet, [28, 29], 100),
 };
 PlayerGraphics.left.flipHorizontal = true;
 
 export const NpcGraphics = {
   idle: tilemapSpriteSheet.getSprite(28, 13)!,
-  left: ex.Animation.fromSpriteSheet(tilemapSpriteSheet, [418, 419], 200),
-  right: ex.Animation.fromSpriteSheet(tilemapSpriteSheet, [418, 419], 200),
+  left: Animation.fromSpriteSheet(tilemapSpriteSheet, [418, 419], 200),
+  right: Animation.fromSpriteSheet(tilemapSpriteSheet, [418, 419], 200),
 };
 NpcGraphics.right.flipHorizontal = true;
 
