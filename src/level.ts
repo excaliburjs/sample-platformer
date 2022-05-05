@@ -4,13 +4,13 @@ import { Player } from "./player";
 import { NPC } from "./npc";
 import { Resources } from "./resources";
 import { Config } from "./config";
-import { addPatrolToScene } from "./behaviors/patrol";
+import { PatrolSystem } from "./behaviors/patrol";
 
 export class Level extends ex.Scene {
   constructor() {
     super();
 
-    addPatrolToScene(this);
+    this.world.add(new PatrolSystem());
   }
 
   onInitialize(engine: ex.Engine) {

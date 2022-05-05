@@ -8,7 +8,7 @@ export interface PatrolComponentArgs {
   to: ex.Vector;
 }
 
-class PatrolComponent extends ex.Component<"patrol"> {
+export class PatrolComponent extends ex.Component<"patrol"> {
   public readonly type = "patrol";
 
   public speed = 50;
@@ -50,7 +50,9 @@ class PatrolComponent extends ex.Component<"patrol"> {
   }
 }
 
-class PatrolSystem extends ex.System<PatrolComponent | ex.ActionsComponent> {
+export class PatrolSystem extends ex.System<
+  PatrolComponent | ex.ActionsComponent
+> {
   public readonly types = ["patrol"] as const;
   public readonly systemType = ex.SystemType.Update;
 
@@ -68,12 +70,4 @@ class PatrolSystem extends ex.System<PatrolComponent | ex.ActionsComponent> {
       patrol.initialize(actions);
     }
   }
-}
-
-export function addPatrolToScene(scene: ex.Scene) {
-  scene.world.add(new PatrolSystem());
-}
-
-export function addPatrolToActor(actor: ex.Actor, args: PatrolComponentArgs) {
-  actor.addComponent(new PatrolComponent(args));
 }

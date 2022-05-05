@@ -3,7 +3,7 @@ import { Resources, BaddieGraphics } from "./resources";
 import { Player } from "./player";
 import { collisionGroups, makeCharacterCollider } from "./physics";
 import { Config } from "./config";
-import { addPatrolToActor } from "./behaviors/patrol";
+import { PatrolComponent } from "./behaviors/patrol";
 
 export class Baddie extends ex.Actor {
   constructor(
@@ -20,12 +20,14 @@ export class Baddie extends ex.Actor {
       collider: makeCharacterCollider(),
     });
 
-    addPatrolToActor(this, {
-      delay: Config.baddiePatrolDelay,
-      speed: Config.baddiePatrolSpeed,
-      from: ex.vec(x + patrolLeft, y),
-      to: ex.vec(x + patrolRight, y),
-    });
+    this.addComponent(
+      new PatrolComponent({
+        delay: Config.baddiePatrolDelay,
+        speed: Config.baddiePatrolSpeed,
+        from: ex.vec(x + patrolLeft, y),
+        to: ex.vec(x + patrolRight, y),
+      })
+    );
   }
 
   onInitialize() {
@@ -41,20 +43,22 @@ export class Baddie extends ex.Actor {
   onPostCollision(evt: ex.PostCollisionEvent) {
     if (evt.other instanceof Player && evt.side === ex.Side.Top) {
       Resources.gotEm.play(0.1);
+
       // Clear patrolling
-      this.actions.clearActions();
+      this.removeComponent(this.get(PatrolComponent)!.type);
+
       // Remove ability to collide
       this.body.collisionType = ex.CollisionType.PreventCollision;
 
       // Launch into air with rotation
-      this.vel = new ex.Vector(0, -300);
+      this.vel = new ex.Vector(0, Config.baddieDeathSpiralVelocity);
       this.acc = ex.Physics.acc;
       this.angularVelocity = 2;
       this.graphics.use("dead");
     }
   }
 
-  onPostUpdate(engine: ex.Engine) {
+  onPostUpdate() {
     if (this.vel.x < 0) {
       this.graphics.use("left");
     } else if (this.vel.x > 0) {

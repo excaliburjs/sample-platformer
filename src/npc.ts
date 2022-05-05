@@ -1,5 +1,5 @@
 import * as ex from "excalibur";
-import { addPatrolToActor } from "./behaviors/patrol";
+import { PatrolComponent } from "./behaviors/patrol";
 import { Config } from "./config";
 import { collisionGroups, makeCharacterCollider } from "./physics";
 import { NpcGraphics } from "./resources";
@@ -18,12 +18,14 @@ export class NPC extends ex.Actor {
       collider: makeCharacterCollider(),
     });
 
-    addPatrolToActor(this, {
-      delay: Config.npcPatrolDelay,
-      speed: Config.npcPatrolSpeed,
-      from: ex.vec(x + patrolLeft, y),
-      to: ex.vec(x + patrolRight, y),
-    });
+    this.addComponent(
+      new PatrolComponent({
+        delay: Config.npcPatrolDelay,
+        speed: Config.npcPatrolSpeed,
+        from: ex.vec(x + patrolLeft, y),
+        to: ex.vec(x + patrolRight, y),
+      })
+    );
   }
 
   onInitialize() {
