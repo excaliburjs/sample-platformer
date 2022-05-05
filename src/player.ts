@@ -1,6 +1,7 @@
 import * as ex from "excalibur";
 import { Resources, PlayerGraphics } from "./resources";
 import { collisionGroups, makeCharacterCollider } from "./physics";
+import { Config } from "./config";
 
 export class Player extends ex.Actor {
   public onGround = true;
@@ -38,15 +39,15 @@ export class Player extends ex.Actor {
     this.vel.x = 0;
 
     if (engine.input.keyboard.isHeld(ex.Input.Keys.Left)) {
-      this.vel.x = -150;
+      this.vel.x = -Config.playerMoveSpeed;
     }
 
     if (engine.input.keyboard.isHeld(ex.Input.Keys.Right)) {
-      this.vel.x = 150;
+      this.vel.x = Config.playerMoveSpeed;
     }
 
     if (engine.input.keyboard.wasPressed(ex.Input.Keys.Up) && this.onGround) {
-      this.vel.y = -300;
+      this.vel.y = Config.playerJumpVelocity;
       this.onGround = false;
       Resources.jump.play(0.1);
     }

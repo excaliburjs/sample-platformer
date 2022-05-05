@@ -11,5 +11,5 @@ export const collisionGroups = {
   player: ex.CollisionGroupManager.groupByName("player"),
 };
 
-export const makeCharacterCollider = () =>
-  ex.Shape.Box(21, 21, ex.Vector.Half, ex.vec(0, 0));
+export const makeCharacterCollider = (bottom: number = 0) =>
+  ex.Shape.Box(21, 21, ex.Vector.Half, ex.vec(0, bottom));

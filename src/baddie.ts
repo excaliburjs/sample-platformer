@@ -17,7 +17,7 @@ export class Baddie extends ex.Actor {
       pos: new ex.Vector(x, y),
       collisionGroup: collisionGroups.enemy,
       collisionType: ex.CollisionType.Active,
-      collider: makeCharacterCollider(),
+      collider: makeCharacterCollider(-1),
     });
 
     this.addComponent(

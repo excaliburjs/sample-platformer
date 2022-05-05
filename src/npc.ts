@@ -35,6 +35,7 @@ export class NPC extends ex.Actor {
     this.graphics.add("idle", NpcGraphics.idle);
     this.graphics.add("left", NpcGraphics.left);
     this.graphics.add("right", NpcGraphics.right);
+    this.graphics.use("idle");
   }
 
   onPostUpdate() {

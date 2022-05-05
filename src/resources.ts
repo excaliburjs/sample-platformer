@@ -51,3 +51,21 @@ export const NpcGraphics = {
   right: ex.Animation.fromSpriteSheet(tilemapSpriteSheet, [418, 419], 200),
 };
 NpcGraphics.right.flipHorizontal = true;
+
+export const initializeLevelMap = (scene: ex.Scene) => {
+  Resources.level.addTiledMapToScene(scene);
+
+  const gameLayer = Resources.level.data.getObjectLayerByName("Game");
+
+  const playerObject = gameLayer.getObjectByType("Player")!;
+  const npcObjects = gameLayer.getObjectsByType("NPC");
+
+  const baddieLayer = Resources.level.data.getObjectLayerByName("Baddies");
+  const baddieObjects = baddieLayer.getObjectsByType("Baddie");
+
+  return {
+    playerObject,
+    npcObjects,
+    baddieObjects,
+  };
+};

@@ -1,12 +1,12 @@
-import * as ex from "excalibur";
+import { Scene } from "excalibur";
 import { Baddie } from "./baddie";
 import { Player } from "./player";
 import { NPC } from "./npc";
-import { Resources } from "./resources";
+import { initializeLevelMap, Resources } from "./resources";
 import { Config } from "./config";
 import { PatrolSystem } from "./behaviors/patrol";
 
-export class Level extends ex.Scene {
+export class Level extends Scene {
   constructor() {
     super();
 
@@ -14,28 +14,29 @@ export class Level extends ex.Scene {
   }
 
   onInitialize() {
-    Resources.level.addTiledMapToScene(this);
+    const { playerObject, npcObjects, baddieObjects } =
+      initializeLevelMap(this);
 
-    const gameLayer = Resources.level.data.getObjectLayerByName("Game");
-
-    const playerObject = gameLayer.getObjectByType("Player")!;
     const player = new Player(playerObject.x, playerObject.y);
     this.add(player);
 
-    const npcObjects = gameLayer.getObjectsByType("NPC");
+    this.camera.clearAllStrategies();
+    this.camera.strategy.elasticToActor(
+      player,
+      Config.cameraElasticity,
+      Config.cameraFriction
+    );
 
     for (const npcObject of npcObjects) {
-      const npc = new NPC(
-        npcObject.x,
-        npcObject.y,
-        npcObject.getProperty<number>("patrol_left")?.value ?? 0,
-        npcObject.getProperty<number>("patrol_right")?.value ?? 0
+      this.add(
+        new NPC(
+          npcObject.x,
+          npcObject.y,
+          npcObject.getProperty<number>("patrol_left")?.value ?? 0,
+          npcObject.getProperty<number>("patrol_right")?.value ?? 0
+        )
       );
-      this.add(npc);
     }
-
-    const baddieLayer = Resources.level.data.getObjectLayerByName("Baddies");
-    const baddieObjects = baddieLayer.getObjectsByType("Baddie");
 
     for (const baddieObject of baddieObjects) {
       this.add(
@@ -47,13 +48,5 @@ export class Level extends ex.Scene {
         )
       );
     }
-
-    // Create camera strategy
-    this.camera.clearAllStrategies();
-    this.camera.strategy.elasticToActor(
-      player,
-      Config.cameraElasticity,
-      Config.cameraFriction
-    );
   }
 }

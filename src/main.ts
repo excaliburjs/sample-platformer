@@ -1,9 +1,10 @@
 import { Color, Engine } from "excalibur";
 import { loader } from "./resources";
 import { Level } from "./level";
+import "./physics";
 
 const game = new Engine({
-  backgroundColor: Color.Azure,
+  backgroundColor: Color.fromHex("#5fcde4"),
   width: 600,
   height: 400,
   antialiasing: false,

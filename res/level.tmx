@@ -28,14 +28,14 @@
   <properties>
    <property name="excalibur" type="bool" value="true"/>
   </properties>
-  <object id="2" name="Baddie1" type="Baddie" x="250" y="156.667">
+  <object id="2" name="Baddie1" type="Baddie" x="250" y="157.667">
    <properties>
     <property name="patrol_left" type="int" value="-21"/>
     <property name="patrol_right" type="int" value="21"/>
    </properties>
    <point/>
   </object>
-  <object id="3" name="Baddie2" type="Baddie" x="468" y="176">
+  <object id="3" name="Baddie2" type="Baddie" x="468" y="178">
    <properties>
     <property name="patrol_left" type="int" value="-81"/>
     <property name="patrol_right" type="int" value="21"/>
