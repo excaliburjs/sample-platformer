@@ -110,13 +110,13 @@ export class Bot extends ex.Actor {
 
     // Change animation based on velocity
     if (!this.hurt) {
-      if (this.vel.x < 0 && !this.hurt) {
+      if (this.vel.x < 0) {
         this.graphics.use("left");
       }
-      if (this.vel.x > 0 && !this.hurt) {
+      if (this.vel.x > 0) {
         this.graphics.use("right");
       }
-      if (this.vel.x === 0 && !this.hurt) {
+      if (this.vel.x === 0) {
         this.graphics.use("idle");
       }
     }
