@@ -36,8 +36,8 @@ export class Baddie extends ex.Actor {
     this.graphics.add("dead", BaddieGraphics.dead);
     this.graphics.use("left");
 
-    // Handle being stomped by the player
     this.on("postcollision", (evt) => this.onPostCollision(evt));
+    this.on("exit", () => this.kill());
   }
 
   onPostCollision(evt: ex.PostCollisionEvent) {
