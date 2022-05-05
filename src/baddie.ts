@@ -51,7 +51,7 @@ export class Baddie extends ex.Actor {
       this.body.collisionType = ex.CollisionType.PreventCollision;
 
       // Launch into air with rotation
-      this.vel = new ex.Vector(0, Config.baddieDeathSpiralVelocity);
+      this.vel = ex.vec(0, Config.baddieDeathSpiralVelocity);
       this.acc = ex.Physics.acc;
       this.angularVelocity = 2;
       this.graphics.use("dead");

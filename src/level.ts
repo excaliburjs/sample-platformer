@@ -2,7 +2,7 @@ import { Scene } from "excalibur";
 import { Baddie } from "./baddie";
 import { Player } from "./player";
 import { NPC } from "./npc";
-import { initializeLevelMap, Resources } from "./resources";
+import { initializeLevelMap } from "./resources";
 import { Config } from "./config";
 import { PatrolSystem } from "./behaviors/patrol";
 
