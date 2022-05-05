@@ -4,6 +4,9 @@ const CopyPlugin = require("copy-webpack-plugin");
 module.exports = {
   entry: "./src/main.ts",
   devtool: "source-map",
+  experiments: {
+    topLevelAwait: true,
+  },
   devServer: {
     port: 9000,
     devMiddleware: {

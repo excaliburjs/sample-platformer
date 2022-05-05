@@ -13,7 +13,7 @@ export class NPC extends ex.Actor {
   ) {
     super({
       pos: new ex.Vector(x, y),
-      collisionGroup: collisionGroups.player(),
+      collisionGroup: collisionGroups.player,
       collisionType: ex.CollisionType.Active,
       collider: makeCharacterCollider(),
     });

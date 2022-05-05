@@ -13,16 +13,11 @@ export class Level extends ex.Scene {
     this.world.add(new PatrolSystem());
   }
 
-  onInitialize(engine: ex.Engine) {
-    // Create collision groups for the game
-    ex.CollisionGroupManager.create("player");
-    ex.CollisionGroupManager.create("enemy");
-    ex.CollisionGroupManager.create("floor");
-
-    // Load level
+  onInitialize() {
     Resources.level.addTiledMapToScene(this);
 
     const gameLayer = Resources.level.data.getObjectLayerByName("Game");
+
     const playerObject = gameLayer.getObjectByType("Player")!;
     const player = new Player(playerObject.x, playerObject.y);
     this.add(player);
