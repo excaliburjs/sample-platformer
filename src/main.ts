@@ -6,6 +6,7 @@ const engine = new ex.Engine({
     backgroundColor: ex.Color.fromHex('#5fcde4'),
     width: 600,
     height: 400,
+    fixedUpdateFps: 60,
     // Turn off anti-aliasing for pixel art graphics
     antialiasing: false
 });
