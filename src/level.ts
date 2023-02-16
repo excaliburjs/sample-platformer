@@ -5,6 +5,7 @@ import { NPC } from "./npc";
 import { initializeLevelMap } from "./resources";
 import { Config } from "./config";
 import { PatrolSystem } from "./behaviors/patrol";
+import { OneWayPlatform } from "./one-way-platform";
 
 export class Level extends Scene {
   constructor() {
@@ -48,5 +49,9 @@ export class Level extends Scene {
         )
       );
     }
+
+    this.add(
+      new OneWayPlatform(player.pos.x, player.pos.y - 20, 50, 5)
+    )
   }
 }
