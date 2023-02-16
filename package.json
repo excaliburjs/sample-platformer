@@ -13,11 +13,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@excaliburjs/plugin-tiled": "^0.25.3",
-    "excalibur": "0.25.3"
+    "@excaliburjs/plugin-tiled": "0.27.0",
+    "excalibur": "0.28.0-alpha.629"
   },
   "devDependencies": {
-    "@excaliburjs/testing": "0.25.0",
+    "@excaliburjs/testing": "0.25.1",
     "copy-webpack-plugin": "10.2.0",
     "file-loader": "6.2.0",
     "ts-loader": "9.2.6",

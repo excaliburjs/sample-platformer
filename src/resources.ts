@@ -57,11 +57,11 @@ export const initializeLevelMap = (scene: ex.Scene) => {
 
   const gameLayer = Resources.level.data.getObjectLayerByName("Game");
 
-  const playerObject = gameLayer.getObjectByType("Player")!;
-  const npcObjects = gameLayer.getObjectsByType("NPC");
+  const playerObject = gameLayer.getObjectByClass("Player")!;
+  const npcObjects = gameLayer.getObjectsByClass("NPC")!;
 
-  const baddieLayer = Resources.level.data.getObjectLayerByName("Baddies");
-  const baddieObjects = baddieLayer.getObjectsByType("Baddie");
+  const baddieLayer = Resources.level.data.getObjectLayerByName("Baddies")!;
+  const baddieObjects = baddieLayer.getObjectsByClass("Baddie")!;
 
   return {
     playerObject,
