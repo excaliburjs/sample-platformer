@@ -37,13 +37,7 @@ module.exports = {
             },
             {
                 test: /\.(png|jpg|bmp|wav|mp3)$/,
-                use: [{
-                    loader: 'file-loader',
-                    options: {
-                        emitFile: true,
-                        esModule: false
-                    }
-                }]
+                type: 'asset/resource'
             }
         ]
     }
