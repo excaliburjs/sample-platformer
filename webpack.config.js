@@ -9,6 +9,7 @@ module.exports = {
   },
   devServer: {
     port: 9000,
+    allowedHosts: 'all',
     devMiddleware: {
       writeToDisk: true,
     },
