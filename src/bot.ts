@@ -1,13 +1,13 @@
 import * as ex from 'excalibur';
 import { botSpriteSheet, Resources } from './resources';
 import { Baddie } from './baddie';
+import { stats } from './stats';
 
 export class Bot extends ex.Actor {
     public onGround = true;
     public jumped = false;
     public hurt = false;
     public hurtTime: number = 0;
-    public health: number = 100;
 
     constructor(x: number, y: number) {
         super({
@@ -69,13 +69,21 @@ export class Bot extends ex.Actor {
             if (this.vel.x >= 0 && !this.hurt) {
                 this.graphics.use("hurtright");
             }
-            this.health -= 1;
+            stats.health -= 1;
             this.hurt = true;
             this.hurtTime = 1000;
-            if (this.health==0) {
-                this.health=50;
-            }
+            this.vel.y = -200;
+            this.onGround = false;
             Resources.hit.play(.1);
+            if (stats.health==0) {
+                // Remove ability to collide
+                this.body.collisionType = ex.CollisionType.PreventCollision;
+
+                // Launch into air with rotation
+                this.acc = ex.Physics.acc;
+                this.angularVelocity = 2;
+                stats.gameOver = true;
+            }
         }
     }
 

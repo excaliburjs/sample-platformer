@@ -3,8 +3,10 @@ import { Baddie } from './baddie';
 import { Bot } from './bot';
 import { Floor } from './floor';
 import { NPC } from './npc';
+import { stats } from './stats';
 
 export class Level extends ex.Scene {
+    public numBaddies: number = 2;
     constructor() {
         super();
     }
@@ -39,7 +41,7 @@ export class Level extends ex.Scene {
         engine.add(otherFloor);
 
         const scoreLabel = new ex.Label({
-            text: "Score: " + actor.health,
+            text: "Health: " + stats.health + " Score: " + stats.score,
             pos: ex.vec(10, 20)
         });
         scoreLabel.font.quality = 4;
@@ -49,7 +51,7 @@ export class Level extends ex.Scene {
         scoreLabel.transform.coordPlane = ex.CoordPlane.Screen;
         scoreLabel.color = ex.Color.Azure;
         scoreLabel.on('preupdate', (evt) => {
-            scoreLabel.text = "Score: " + actor.health;
+            scoreLabel.text= "Health: " + stats.health + " Score: " + stats.score
         });
         engine.add(scoreLabel);
 

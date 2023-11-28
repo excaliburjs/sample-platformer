@@ -1,6 +1,7 @@
 import * as ex from 'excalibur';
 import { baddieSpriteSheet, Resources } from "./resources";
 import { Bot } from './bot';
+import { stats } from './stats';
 
 export class Baddie extends ex.Actor {
     constructor(x: number, y: number, public dir: number) {
@@ -48,7 +49,7 @@ export class Baddie extends ex.Actor {
     }
 
     onPostCollision(evt: ex.PostCollisionEvent) {
-        if (evt.other instanceof Bot && evt.side === ex.Side.Top) {
+        if (evt.other instanceof Bot && evt.side === ex.Side.Top && !evt.other.hurt) {
             Resources.gotEm.play(.1);
             // Clear patrolling
             this.actions.clearActions();
@@ -59,6 +60,11 @@ export class Baddie extends ex.Actor {
             this.vel = new ex.Vector(0, -300);
             this.acc = ex.Physics.acc;
             this.angularVelocity = 2;
+            // Update stats
+            stats.score += 1;
+            if(stats.score==2) {
+                stats.gameOver = true;
+            }
         }
     }
 
