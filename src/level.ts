@@ -24,15 +24,34 @@ export class Level extends ex.Scene {
 
         const npc = new NPC(400, 170);
         
-        const floor = new Floor(0, 300, 15, 1);
-        const otherFloor = new Floor(engine.halfDrawWidth + 50, 200, 5, 1);
+        const wall1 = new Floor(0, 0, 1, 10);
+        const wall2 = new Floor(15*40, 0*30, 1, 10);
+        const floor = new Floor(0*40, 10*30, 15, 1);
+        const otherFloor = new Floor(engine.halfDrawWidth + 50, 210, 5, 1);
 
         engine.add(actor);
         engine.add(npc);
         engine.add(baddie);
         engine.add(baddie2);
         engine.add(floor);
+        engine.add(wall1);
+        engine.add(wall2);
         engine.add(otherFloor);
+
+        const scoreLabel = new ex.Label({
+            text: "Score: " + actor.health,
+            pos: ex.vec(10, 20)
+        });
+        scoreLabel.font.quality = 4;
+        scoreLabel.font.size = 15;
+        scoreLabel.font.unit = ex.FontUnit.Px;
+        //scoreLabel.font.family = "Open Sans";
+        scoreLabel.transform.coordPlane = ex.CoordPlane.Screen;
+        scoreLabel.color = ex.Color.Azure;
+        scoreLabel.on('preupdate', (evt) => {
+            scoreLabel.text = "Score: " + actor.health;
+        });
+        engine.add(scoreLabel);
 
         // For the test harness to be predicable
         if (!(window as any).__TESTING) {
