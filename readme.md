@@ -19,4 +19,4 @@ Play sample [here](https://excaliburjs.com/sample-platformer)
 
 # Credits
 
-* Platform Asset Pack By Cam Tatz (@CamTatz)
+* [Platform Asset Pack By Cam Tatz (@CamTatz)](https://opengameart.org/content/platformer-asset-pack-1)
