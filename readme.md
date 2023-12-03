@@ -1,4 +1,4 @@
-# Excalibur Platformer Sample
+# Alan & Ada kids programming
 
 Play sample [here](https://excaliburjs.com/sample-platformer)
 
@@ -16,3 +16,7 @@ Play sample [here](https://excaliburjs.com/sample-platformer)
 
 * Run `npm run build:dev` to produce javascript bundles for debugging in the `dist/` folder
 * Run `npm run build:prod` to produce javascript bundles for production (minified) in the `dist/` folder
+
+# Credits
+
+* Platform Asset Pack By Cam Tatz (@CamTatz)

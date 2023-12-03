@@ -5,6 +5,7 @@ import { stats } from './stats';
 
 export class Bot extends ex.Actor {
     public onGround = true;
+    public atGate = false;
     public jumped = false;
     public hurt = false;
     public hurtTime: number = 0;
@@ -54,7 +55,7 @@ export class Bot extends ex.Actor {
 
     onPostCollision(evt: ex.PostCollisionEvent) {
         // Bot has collided with it's Top of another collider
-        console.log(evt.other.name);
+        //console.log(evt.other.name);
         if (evt.side === ex.Side.Bottom) {
             this.onGround = true;
         }
@@ -110,9 +111,13 @@ export class Bot extends ex.Actor {
         }
 
         if(engine.input.keyboard.isHeld(ex.Input.Keys.Up) && this.onGround) {
-            this.vel.y = -400;
-            this.onGround = false;
-            Resources.jump.play(.1);
+            if (this.atGate) {
+                stats.nextScene = true;
+            } else{
+                this.vel.y = -400;
+                this.onGround = false;
+                Resources.jump.play(.1);
+            }
         }
 
         // Change animation based on velocity

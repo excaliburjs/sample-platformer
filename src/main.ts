@@ -22,15 +22,24 @@ engine.add('gameover', gameover);
 // Setup first level as a custom scene
 const level = new Level();
 engine.add('level', level);
-engine.goToScene('level');
 
+const levels = [
+    'level',
+    'gameover'
+];
+let currentLevel = 0
+engine.goToScene(levels[currentLevel]);
+//engine.showDebug(true);
 // Game events to handle
 engine.on('hidden', () => {
     console.log('pause');
     engine.stop();
 });
 engine.on('preupdate', () => {
-    if(stats.gameOver) {
+    if(stats.nextScene) {
+        currentLevel += 1;
+        engine.goToScene(levels[currentLevel]);
+    } else if(stats.gameOver) {
         engine.goToScene('gameover');
     }
 })

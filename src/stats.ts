@@ -1,6 +1,7 @@
 class Stats {
     public health: number = 100;
     public gameOver: boolean = false;
+    public nextScene: boolean = false;
     public score: number = 0;
     public reset() {
         this.health = 100;

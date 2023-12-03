@@ -1,15 +1,17 @@
 import * as ex from 'excalibur';
 import { botRedSpriteSheet, Resources, npcSprite } from './resources';
+import { Bot } from './bot';
 
 export class NPC extends ex.Actor {
     public onGround = true;
+    public talk = false;
     public hurt = false;
     public hurtTime: number = 0;
     constructor(x: number, y: number) {
         super({
             pos: new ex.Vector(x, y),
-            collisionType: ex.CollisionType.Active,
-            collisionGroup: ex.CollisionGroupManager.groupByName("player"),
+            collisionType: ex.CollisionType.Passive,
+            collisionGroup: ex.CollisionGroupManager.groupByName("enemy"),
             collider: ex.Shape.Box(32, 50, ex.Vector.Half, ex.vec(0, 3))
         });
     }
@@ -55,13 +57,29 @@ export class NPC extends ex.Actor {
                             .moveBy(100, 0, 20)
                             .moveBy(-100, 0, 20));
         }
+        this.on('collisionstart', (evt) => this.onCollisionStart(evt));
+        this.on('collisionend', (evt) => this.onCollisionEnd(evt));
 
 
         // Custom draw after local tranform, draws word bubble
         this.graphics.onPostDraw = (ctx) => {
-            npcSprite.draw(ctx, -10, -100);
+            if (this.talk) {
+                npcSprite.draw(ctx, -10, -100);
+            }
         }
 
+    }
+
+    onCollisionStart(evt: ex.CollisionStartEvent) {
+        if (evt.other instanceof Bot){
+            this.talk = true;
+        }
+    }
+
+    onCollisionEnd(evt: ex.CollisionEndEvent) {
+        if (evt.other instanceof Bot){
+            this.talk = false;
+        }
     }
 
     onPostUpdate(engine: ex.Engine, delta: number) {

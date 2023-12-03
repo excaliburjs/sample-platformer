@@ -4,6 +4,7 @@ import { Bot } from './bot';
 import { Floor } from './floor';
 import { NPC } from './npc';
 import { stats } from './stats';
+import { Gate } from './gate';
 
 export class Level extends ex.Scene {
     public numBaddies: number = 2;
@@ -24,13 +25,15 @@ export class Level extends ex.Scene {
         const baddie = new Baddie(engine.halfDrawWidth - 200, 300 - 30, 1);
         const baddie2 = new Baddie(engine.halfDrawWidth + 200, 300 - 30, -1);
 
-        const npc = new NPC(400, 170);
+        const npc = new NPC(400, 180);
+        const gate = new Gate(engine.halfDrawWidth + 50, 100);
         
         const wall1 = new Floor(0, 0, 1, 10);
         const wall2 = new Floor(15*40, 0*30, 1, 10);
         const floor = new Floor(0*40, 10*30, 15, 1);
         const otherFloor = new Floor(engine.halfDrawWidth + 50, 210, 5, 1);
 
+        engine.add(gate);
         engine.add(actor);
         engine.add(npc);
         engine.add(baddie);

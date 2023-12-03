@@ -62,9 +62,6 @@ export class Baddie extends ex.Actor {
             this.angularVelocity = 2;
             // Update stats
             stats.score += 1;
-            if(stats.score==2) {
-                stats.gameOver = true;
-            }
         }
     }
 
