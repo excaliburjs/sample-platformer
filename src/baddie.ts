@@ -1,16 +1,17 @@
 import * as ex from 'excalibur';
-import { baddieSpriteSheet, Resources } from "./resources";
+import { baddieSpriteSheet, Resources, tileSize } from "./resources";
 import { Bot } from './bot';
 import { stats } from './stats';
 
 export class Baddie extends ex.Actor {
-    constructor(x: number, y: number, public dir: number) {
+    constructor(x: number, y: number, public left: number, public right: number) {
         super({
             name: 'Baddie',
-            pos: new ex.Vector(x, y),
+            pos: new ex.Vector(x*tileSize, y*tileSize),
+            anchor: new ex.Vector(0.5,1),
             collisionGroup: ex.CollisionGroupManager.groupByName("enemy"),
             collisionType: ex.CollisionType.Active,
-            collider: ex.Shape.Box(32, 50, ex.Vector.Half, ex.vec(0, -1)) 
+            collider: ex.Shape.Box(32, 50, new ex.Vector(0.5,1)) 
         });
     }
 
@@ -40,8 +41,8 @@ export class Baddie extends ex.Actor {
         if (!(window as any).__TESTING) {
             this.actions.delay(1000)
                         .repeatForever(ctx => ctx
-                            .moveBy(400 * this.dir, 0, 100)
-                            .moveBy(-400 * this.dir, 0, 100));
+                            .moveTo(this.left * tileSize, this.pos.y, 100)
+                            .moveTo(this.right * tileSize, this.pos.y, 100));
         }
 
         // Handle being stomped by the player

@@ -30,6 +30,8 @@ const Resources = {
 
 const loader = new ex.Loader();
 
+const tileSize: number = 208/4;
+
 const botSpriteSheet = ex.SpriteSheet.fromImageSource({
     image:Resources.bot, 
     grid: { 
@@ -85,7 +87,7 @@ for (const res in Resources) {
 }
 
 export { 
-    Resources, loader, 
+    Resources, loader, tileSize,
     botSpriteSheet, botRedSpriteSheet, 
     baddieSpriteSheet, 
     gateOpenSpriteSheet, gateClosedSpriteSheet, 

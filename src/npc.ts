@@ -1,5 +1,5 @@
 import * as ex from 'excalibur';
-import { botRedSpriteSheet, Resources, npcSprite } from './resources';
+import { botRedSpriteSheet, Resources, npcSprite, tileSize } from './resources';
 import { Bot } from './bot';
 
 export class NPC extends ex.Actor {
@@ -9,10 +9,11 @@ export class NPC extends ex.Actor {
     public hurtTime: number = 0;
     constructor(x: number, y: number) {
         super({
-            pos: new ex.Vector(x, y),
+            pos: new ex.Vector(x*tileSize, y*tileSize),
+            anchor: new ex.Vector(0.5,1),
             collisionType: ex.CollisionType.Passive,
             collisionGroup: ex.CollisionGroupManager.groupByName("enemy"),
-            collider: ex.Shape.Box(32, 50, ex.Vector.Half, ex.vec(0, 3))
+            collider: ex.Shape.Box(32, 50, new ex.Vector(0.5,1))
         });
     }
 

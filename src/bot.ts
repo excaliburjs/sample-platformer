@@ -1,5 +1,5 @@
 import * as ex from 'excalibur';
-import { botSpriteSheet, Resources } from './resources';
+import { botSpriteSheet, Resources, tileSize } from './resources';
 import { Baddie } from './baddie';
 import { stats } from './stats';
 
@@ -13,10 +13,11 @@ export class Bot extends ex.Actor {
     constructor(x: number, y: number) {
         super({
             name: 'Bot',
-            pos: new ex.Vector(x, y),
+            pos: new ex.Vector(x*tileSize, y*tileSize),
+            anchor: new ex.Vector(0.5,1),
             collisionType: ex.CollisionType.Active,
             collisionGroup: ex.CollisionGroupManager.groupByName("player"),
-            collider: ex.Shape.Box(32, 50, ex.Vector.Half, ex.vec(0, 3))
+            collider: ex.Shape.Box(32, 50, new ex.Vector(0.5,1))
         });
     }
 
@@ -114,7 +115,7 @@ export class Bot extends ex.Actor {
             if (this.atGate) {
                 stats.nextScene = true;
             } else{
-                this.vel.y = -400;
+                this.vel.y = -tileSize*10;
                 this.onGround = false;
                 Resources.jump.play(.1);
             }

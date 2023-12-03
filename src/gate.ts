@@ -1,5 +1,5 @@
 import * as ex from 'excalibur';
-import { gateOpenSpriteSheet, gateClosedSpriteSheet } from './resources';
+import { gateOpenSpriteSheet, gateClosedSpriteSheet, tileSize } from './resources';
 import { Bot } from './bot';
 import { stats } from './stats';
 
@@ -9,10 +9,10 @@ export class Gate extends ex.Actor {
     constructor(x: number, y: number) {
         super({
             name: 'Gate',
-            pos: new ex.Vector(x, y),
+            pos: new ex.Vector(x*tileSize, y*tileSize),
             scale: new ex.Vector(0.5, 0.5),
-            anchor: ex.Vector.Zero,
-            collider: ex.Shape.Box(228/2, 227, ex.Vector.Zero, new ex.Vector(228/4, 0)),
+            anchor: ex.Vector.Down,
+            collider: ex.Shape.Box(tileSize*4, tileSize*4, ex.Vector.Down, new ex.Vector((228-tileSize*4)/2, 0)),
             collisionType: ex.CollisionType.Passive,
             collisionGroup: ex.CollisionGroupManager.groupByName("floor"),
         });
