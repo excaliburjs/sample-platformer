@@ -1,7 +1,8 @@
 import * as ex from 'excalibur';
-import { botSpriteSheet, Resources, tileSize } from './resources';
+import { botSpriteSheet, girlHurtSpriteSheet, girlIdleSpriteSheet, girlJumpSpriteSheet, girlRunSpriteSheet, Resources, tileSize } from './resources';
 import { Baddie } from './baddie';
 import { stats } from './stats';
+import { Floor } from './floor';
 
 export class Bot extends ex.Actor {
     public onGround = true;
@@ -26,26 +27,35 @@ export class Bot extends ex.Actor {
         // Initialize actor
 
         // Setup visuals
-        const hurtleft = ex.Animation.fromSpriteSheet(botSpriteSheet, [0, 1, 0, 1, 0, 1], 150);
-        hurtleft.scale = new ex.Vector(2, 2);
+        const hurtleft = ex.Animation.fromSpriteSheet(girlHurtSpriteSheet, [0], 80);
+        hurtleft.scale = new ex.Vector(0.125, 0.125);
+        hurtleft.flipHorizontal = true;
 
-        const hurtright = ex.Animation.fromSpriteSheet(botSpriteSheet, [0, 1, 0, 1, 0, 1], 150);
-        hurtright.scale = new ex.Vector(2, 2);
-        hurtright.flipHorizontal = true;
+        const hurtright = ex.Animation.fromSpriteSheet(girlHurtSpriteSheet, [0], 80);
+        hurtright.scale = new ex.Vector(0.125, 0.125);
 
-        const idle = ex.Animation.fromSpriteSheet(botSpriteSheet, [2, 3], 800);
-        idle.scale = new ex.Vector(2, 2);
+        const idle = ex.Animation.fromSpriteSheet(girlIdleSpriteSheet, [0, 1,2,3,4,5,6,7,8,9], 80);
+        idle.scale = new ex.Vector(0.125, 0.125);
 
-        const left = ex.Animation.fromSpriteSheet(botSpriteSheet, [3, 4, 5, 6, 7], 100);
-        left.scale = new ex.Vector(2, 2);
+        const jumpleft = ex.Animation.fromSpriteSheet(girlJumpSpriteSheet, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 80);
+        jumpleft.scale = new ex.Vector(0.125, 0.125);
+        jumpleft.flipHorizontal = true;
 
-        const right = ex.Animation.fromSpriteSheet(botSpriteSheet, [3, 4, 5, 6, 7], 100);
-        right.scale = new ex.Vector(2, 2);
-        right.flipHorizontal = true;;
+        const jumpright = ex.Animation.fromSpriteSheet(girlJumpSpriteSheet, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 80);
+        jumpright.scale = new ex.Vector(0.125, 0.125);
+
+        const left = ex.Animation.fromSpriteSheet(girlRunSpriteSheet, [0, 1, 2, 3, 4, 5, 6, 7], 80);
+        left.scale = new ex.Vector(0.125, 0.125);
+        left.flipHorizontal = true;
+
+        const right = ex.Animation.fromSpriteSheet(girlRunSpriteSheet, [0, 1, 2, 3, 4, 5, 6, 7], 80);
+        right.scale = new ex.Vector(0.125, 0.125);
 
         // Register animations with actor
         this.graphics.add("hurtleft", hurtleft);
         this.graphics.add("hurtright", hurtright);
+        this.graphics.add("jumpleft", jumpleft);
+        this.graphics.add("jumpright", jumpright);
         this.graphics.add("idle", idle);
         this.graphics.add("left", left);
         this.graphics.add("right", right);
@@ -57,7 +67,7 @@ export class Bot extends ex.Actor {
     onPostCollision(evt: ex.PostCollisionEvent) {
         // Bot has collided with it's Top of another collider
         //console.log(evt.other.name);
-        if (evt.side === ex.Side.Bottom) {
+        if (evt.side === ex.Side.Bottom && evt.other instanceof Floor) {
             this.onGround = true;
         }
 
@@ -65,11 +75,14 @@ export class Bot extends ex.Actor {
         if ((evt.side === ex.Side.Left ||
              evt.side === ex.Side.Right) &&
             evt.other instanceof Baddie) {
-            if (this.vel.x < 0 && !this.hurt) {
-                this.graphics.use("hurtleft");
-            } 
-            if (this.vel.x >= 0 && !this.hurt) {
-                this.graphics.use("hurtright");
+            if (!this.hurt){
+                if (this.vel.x < 0) {
+                    this.vel.x = 300;
+                    this.graphics.use("hurtleft");
+                } else {
+                    this.vel.x = -300;
+                    this.graphics.use("hurtright");
+                }
             }
             stats.health -= 1;
             this.hurt = true;
@@ -97,39 +110,49 @@ export class Bot extends ex.Actor {
             if (this.hurtTime < 0) {
                 this.hurt = false;
             }
-        }
+        } else {
+            // Reset x velocity
+            this.vel.x = 0;
+            // Player input
+            if(engine.input.keyboard.isHeld(ex.Input.Keys.Left)) {
+                this.vel.x = -300;
+            }
 
-        // Reset x velocity
-        this.vel.x = 0;
+            if(engine.input.keyboard.isHeld(ex.Input.Keys.Right)) {
+                this.vel.x = 300;
+            }
 
-        // Player input
-        if(engine.input.keyboard.isHeld(ex.Input.Keys.Left)) {
-            this.vel.x = -300;
-        }
-
-        if(engine.input.keyboard.isHeld(ex.Input.Keys.Right)) {
-            this.vel.x = 300;
-        }
-
-        if(engine.input.keyboard.isHeld(ex.Input.Keys.Up) && this.onGround) {
-            if (this.atGate) {
-                stats.nextScene = true;
-            } else{
-                this.vel.y = -tileSize*10;
-                this.onGround = false;
-                Resources.jump.play(.1);
+            if(engine.input.keyboard.isHeld(ex.Input.Keys.Up) && this.onGround) {
+                if (this.atGate) {
+                    stats.nextScene = true;
+                } else{
+                    this.vel.y = -tileSize*10;
+                    this.onGround = false;
+                    this.graphics.use("jumpleft");
+                    Resources.jump.play(.1);
+                }
             }
         }
 
         // Change animation based on velocity
-        if (this.vel.x < 0 && !this.hurt) {
-            this.graphics.use("left");
-        } 
-        if (this.vel.x > 0 && !this.hurt) {
-            this.graphics.use("right");
-        }
-        if (this.vel.x === 0 && !this.hurt){
-            this.graphics.use("idle")
+        if (!this.hurt){
+            if (this.onGround) {
+                if (this.vel.x < 0) {
+                    this.graphics.use("left");
+                } 
+                if (this.vel.x > 0) {
+                    this.graphics.use("right");
+                }
+                if (this.vel.x === 0){
+                    this.graphics.use("idle")
+                }
+            } else{
+                if (this.vel.x < 0) {
+                    this.graphics.use("jumpleft");
+                } else {
+                    this.graphics.use("jumpright");
+                }
+            }
         }
     }
 }

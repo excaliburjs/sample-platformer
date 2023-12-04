@@ -1,5 +1,5 @@
 import * as ex from 'excalibur';
-import { botRedSpriteSheet, Resources, npcSprite, tileSize } from './resources';
+import { botRedSpriteSheet, girlIdleSpriteSheet, girlRunSpriteSheet, npcSprite, tileSize } from './resources';
 import { Bot } from './bot';
 
 export class NPC extends ex.Actor {
@@ -9,7 +9,7 @@ export class NPC extends ex.Actor {
     public hurtTime: number = 0;
     constructor(x: number, y: number) {
         super({
-            pos: new ex.Vector(x*tileSize, y*tileSize),
+            pos: new ex.Vector(x*tileSize, y*tileSize+3),
             anchor: new ex.Vector(0.5,1),
             collisionType: ex.CollisionType.Passive,
             collisionGroup: ex.CollisionGroupManager.groupByName("enemy"),
@@ -25,26 +25,17 @@ export class NPC extends ex.Actor {
         this.z = -1;
 
         // Setup visuals
-        const hurtleft = ex.Animation.fromSpriteSheet(botRedSpriteSheet, [0, 1, 0, 1, 0, 1], 150);
-        hurtleft.scale = new ex.Vector(2, 2);
+        const idle = ex.Animation.fromSpriteSheet(girlIdleSpriteSheet, [0, 1,2,3,4,5,6,7,8,9], 80);
+        idle.scale = new ex.Vector(0.125, 0.125);
 
-        const hurtright = ex.Animation.fromSpriteSheet(botRedSpriteSheet, [0, 1, 0, 1, 0, 1], 150);
-        hurtright.scale = new ex.Vector(2, 2);
-        hurtright.flipHorizontal = true;
+        const left = ex.Animation.fromSpriteSheet(girlRunSpriteSheet, [0, 1, 2, 3, 4, 5, 6, 7], 80);
+        left.scale = new ex.Vector(0.125, 0.125);
+        left.flipHorizontal = true;
 
-        const idle = ex.Animation.fromSpriteSheet(botRedSpriteSheet, [2, 3], 800);
-        idle.scale = new ex.Vector(2, 2);
-
-        const left = ex.Animation.fromSpriteSheet(botRedSpriteSheet, [3, 4, 5, 6, 7], 100);
-        left.scale = new ex.Vector(2, 2);
-
-        const right = ex.Animation.fromSpriteSheet(botRedSpriteSheet, [3, 4, 5, 6, 7], 100);
-        right.scale = new ex.Vector(2, 2);
-        right.flipHorizontal = true;
+        const right = ex.Animation.fromSpriteSheet(girlRunSpriteSheet, [0, 1, 2, 3, 4, 5, 6, 7], 80);
+        right.scale = new ex.Vector(0.125, 0.125);
 
         // Register drawings
-        this.graphics.add("hurtleft", hurtleft);
-        this.graphics.add("hurtright", hurtright);
         this.graphics.add("idle", idle);
         this.graphics.add("left", left);
         this.graphics.add("right", right);
@@ -55,8 +46,10 @@ export class NPC extends ex.Actor {
         if (!(window as any).__TESTING) {
             this.actions.delay(1000)
                         .repeatForever(ctx => ctx
-                            .moveBy(100, 0, 20)
-                            .moveBy(-100, 0, 20));
+                            .moveBy(200, 0, 100)
+                            .delay(1000)
+                            .moveBy(-200, 0, 100)
+                            .delay(1000));
         }
         this.on('collisionstart', (evt) => this.onCollisionStart(evt));
         this.on('collisionend', (evt) => this.onCollisionEnd(evt));
