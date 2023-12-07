@@ -1,4 +1,5 @@
 class Stats {
+    public character: string = "boy";
     public health: number = 100;
     public gameOver: boolean = false;
     public nextScene: boolean = false;

@@ -5,6 +5,10 @@ const girlIdleFile = require('../res/girl-idle.png')
 const girlRunFile = require('../res/girl-run.png')
 const girlHurtFile = require('../res/girl-hurt.png')
 const girlJumpFile = require('../res/girl-jump.png')
+const boyIdleFile = require('../res/boy-idle.png')
+const boyRunFile = require('../res/boy-run.png')
+const boyHurtFile = require('../res/boy-hurt.png')
+const boyJumpFile = require('../res/boy-jump.png')
 const botRedFile = require('../res/excalibot-red.png');
 const baddieFile = require('../res/baddie.png');
 const gateClosedFile = require('../res/Door_Closed_Dark_Top_Round.png')
@@ -24,6 +28,10 @@ const Resources = {
     girlRun: new ex.ImageSource(girlRunFile),
     girlHurt: new ex.ImageSource(girlHurtFile),
     girlJump: new ex.ImageSource(girlJumpFile),
+    boyIdle: new ex.ImageSource(boyIdleFile),
+    boyRun: new ex.ImageSource(boyRunFile),
+    boyHurt: new ex.ImageSource(boyHurtFile),
+    boyJump: new ex.ImageSource(boyJumpFile),
     baddie: new ex.ImageSource(baddieFile),
     gateOpen: new ex.ImageSource(gateOpenFile),
     gateClosed: new ex.ImageSource(gateClosedFile),
@@ -74,6 +82,42 @@ const girlJumpSpriteSheet = ex.SpriteSheet.fromImageSource({
         rows: 1, 
         spriteWidth: 641,
         spriteHeight: 542
+    }
+});
+const boyIdleSpriteSheet = ex.SpriteSheet.fromImageSource({
+    image:Resources.boyIdle, 
+    grid: { 
+        columns: 10,
+        rows: 1, 
+        spriteWidth: 319,
+        spriteHeight: 486
+    }
+});
+const boyRunSpriteSheet = ex.SpriteSheet.fromImageSource({
+    image:Resources.boyRun, 
+    grid: { 
+        columns: 8,
+        rows: 1, 
+        spriteWidth: 415,
+        spriteHeight: 507
+    }
+});
+const boyHurtSpriteSheet = ex.SpriteSheet.fromImageSource({
+    image:Resources.boyHurt, 
+    grid: { 
+        columns: 1,
+        rows: 1, 
+        spriteWidth: 588,
+        spriteHeight: 600
+    }
+});
+const boyJumpSpriteSheet = ex.SpriteSheet.fromImageSource({
+    image:Resources.boyJump, 
+    grid: { 
+        columns: 10,
+        rows: 1, 
+        spriteWidth: 407,
+        spriteHeight: 536
     }
 });
 const botSpriteSheet = ex.SpriteSheet.fromImageSource({
@@ -133,6 +177,7 @@ for (const res in Resources) {
 export { 
     Resources, loader, tileSize,
     girlIdleSpriteSheet, girlRunSpriteSheet, girlHurtSpriteSheet, girlJumpSpriteSheet,
+    boyIdleSpriteSheet, boyRunSpriteSheet, boyHurtSpriteSheet, boyJumpSpriteSheet,
     botSpriteSheet, botRedSpriteSheet, 
     baddieSpriteSheet, 
     gateOpenSpriteSheet, gateClosedSpriteSheet, 
