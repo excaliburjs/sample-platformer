@@ -1,6 +1,6 @@
 import * as ex from 'excalibur';
 import { botRedSpriteSheet, girlIdleSpriteSheet, girlRunSpriteSheet, npcSprite, tileSize } from './resources';
-import { Bot } from './bot';
+import { Player } from './player';
 
 export class NPC extends ex.Actor {
     public onGround = true;
@@ -65,13 +65,13 @@ export class NPC extends ex.Actor {
     }
 
     onCollisionStart(evt: ex.CollisionStartEvent) {
-        if (evt.other instanceof Bot){
+        if (evt.other instanceof Player){
             this.talk = true;
         }
     }
 
     onCollisionEnd(evt: ex.CollisionEndEvent) {
-        if (evt.other instanceof Bot){
+        if (evt.other instanceof Player){
             this.talk = false;
         }
     }

@@ -1,6 +1,6 @@
 import * as ex from 'excalibur';
 import { gateOpenSpriteSheet, gateClosedSpriteSheet, tileSize } from './resources';
-import { Bot } from './bot';
+import { Player } from './player';
 import { stats } from './stats';
 
 export class Gate extends ex.Actor {
@@ -42,13 +42,13 @@ export class Gate extends ex.Actor {
         }
     }
     onCollisionStart(evt: ex.CollisionStartEvent) {
-        if (evt.other instanceof Bot){
+        if (evt.other instanceof Player){
             evt.other.atGate = this.isOpen;
         }
     }
 
     onCollisionEnd(evt: ex.CollisionEndEvent) {
-        if (evt.other instanceof Bot){
+        if (evt.other instanceof Player){
             evt.other.atGate = false;
         }
     }

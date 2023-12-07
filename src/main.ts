@@ -1,8 +1,9 @@
 import * as ex from 'excalibur';
 import { loader } from './resources';
-import { Level } from './level';
-import { GameOver } from './gameover';
+import { Level } from './scenes/level';
+import { GameOver } from './scenes/gameover';
 import { stats } from './stats';
+import { PlayerSelect } from './scenes/player-select';
 
 const engine = new ex.Engine({
     backgroundColor: ex.Color.fromHex('#5fcde4'),
@@ -16,6 +17,9 @@ const engine = new ex.Engine({
 // Set global gravity, 800 pixels/sec^2
 ex.Physics.acc = new ex.Vector(0, 800);
 
+const playerSelect = new PlayerSelect();
+engine.add('playerSelect', playerSelect);
+
 const gameover = new GameOver();
 engine.add('gameover', gameover);
 
@@ -24,6 +28,7 @@ const level = new Level();
 engine.add('level', level);
 
 const levels = [
+    'playerSelect',
     'level',
     'gameover'
 ];
@@ -38,6 +43,7 @@ engine.on('hidden', () => {
 engine.on('preupdate', () => {
     if(stats.nextScene) {
         currentLevel += 1;
+        stats.nextScene = false;
         engine.goToScene(levels[currentLevel]);
     } else if(stats.gameOver) {
         engine.goToScene('gameover');

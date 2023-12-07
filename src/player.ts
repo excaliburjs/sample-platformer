@@ -4,7 +4,7 @@ import { Baddie } from './baddie';
 import { stats } from './stats';
 import { Floor } from './floor';
 
-export class Bot extends ex.Actor {
+export class Player extends ex.Actor {
     public onGround = true;
     public atGate = false;
     public jumped = false;

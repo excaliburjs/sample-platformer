@@ -1,6 +1,6 @@
 import * as ex from 'excalibur';
 import { baddieSpriteSheet, Resources, tileSize } from "./resources";
-import { Bot } from './bot';
+import { Player } from './player';
 import { stats } from './stats';
 
 export class Baddie extends ex.Actor {
@@ -50,7 +50,7 @@ export class Baddie extends ex.Actor {
     }
 
     onPostCollision(evt: ex.PostCollisionEvent) {
-        if (evt.other instanceof Bot && evt.side === ex.Side.Top && !evt.other.hurt) {
+        if (evt.other instanceof Player && evt.side === ex.Side.Top && !evt.other.hurt) {
             Resources.gotEm.play(.1);
             // Clear patrolling
             this.actions.clearActions();

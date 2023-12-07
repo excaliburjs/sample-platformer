@@ -1,11 +1,11 @@
 import * as ex from 'excalibur';
-import { Baddie } from './baddie';
-import { Bot } from './bot';
-import { Floor } from './floor';
-import { NPC } from './npc';
-import { stats } from './stats';
-import { Gate } from './gate';
-import { tileSize } from './resources';
+import { Baddie } from '../baddie';
+import { Player } from '../player';
+import { Floor } from '../floor';
+import { NPC } from '../npc';
+import { stats } from '../stats';
+import { Gate } from '../gate';
+import { tileSize } from '../resources';
 
 export class Level extends ex.Scene {
     constructor() {
@@ -20,7 +20,7 @@ export class Level extends ex.Scene {
         ex.CollisionGroupManager.create("floor");
 
         // Compose actors in scene
-        const actor = new Bot(9, 2);
+        const actor = new Player(9, 2);
 
         const baddie = new Baddie(4, 5, 2, 10);
         const baddie2 = new Baddie(8, 5, 4, 14);
