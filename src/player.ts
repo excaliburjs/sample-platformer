@@ -126,7 +126,7 @@ export class Player extends ex.Actor {
                 this.vel.x = 200;
             }
 
-            if(engine.input.keyboard.isHeld(ex.Input.Keys.Up) && this.onGround) {
+            if(engine.input.keyboard.wasPressed (ex.Input.Keys.Up) && this.onGround) {
                 if (this.atGate) {
                     stats.nextScene = true;
                 } else{

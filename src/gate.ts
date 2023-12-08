@@ -6,7 +6,7 @@ import { stats } from './stats';
 export class Gate extends ex.Actor {
     public isOpen = false;
 
-    constructor(x: number, y: number) {
+    constructor(x: number, y: number, goal: number) {
         super({
             name: 'Gate',
             pos: new ex.Vector(x*tileSize, y*tileSize),
@@ -31,7 +31,7 @@ export class Gate extends ex.Actor {
 
         // Custom draw after local tranform, draws word bubble
         this.graphics.onPostDraw = (ctx) => {
-            if(stats.score==2) {
+            if(stats.score==goal) {
                 this.isOpen = true;
             }
             if (this.isOpen) {
