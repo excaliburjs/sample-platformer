@@ -1,5 +1,5 @@
 import * as ex from 'excalibur';
-import { botRedSpriteSheet, girlIdleSpriteSheet, girlRunSpriteSheet, npcSprite, tileSize } from './resources';
+import { girl, npcSprite, tileSize } from './resources';
 import { Player } from './player';
 
 export class NPC extends ex.Actor {
@@ -25,14 +25,14 @@ export class NPC extends ex.Actor {
         this.z = -1;
 
         // Setup visuals
-        const idle = ex.Animation.fromSpriteSheet(girlIdleSpriteSheet, [0, 1,2,3,4,5,6,7,8,9], 80);
+        const idle = ex.Animation.fromSpriteSheet(girl.idle, [0, 1,2,3,4,5,6,7,8,9], 80);
         idle.scale = new ex.Vector(0.125, 0.125);
 
-        const left = ex.Animation.fromSpriteSheet(girlRunSpriteSheet, [0, 1, 2, 3, 4, 5, 6, 7], 80);
+        const left = ex.Animation.fromSpriteSheet(girl.run, [0, 1, 2, 3, 4, 5, 6, 7], 80);
         left.scale = new ex.Vector(0.125, 0.125);
         left.flipHorizontal = true;
 
-        const right = ex.Animation.fromSpriteSheet(girlRunSpriteSheet, [0, 1, 2, 3, 4, 5, 6, 7], 80);
+        const right = ex.Animation.fromSpriteSheet(girl.run, [0, 1, 2, 3, 4, 5, 6, 7], 80);
         right.scale = new ex.Vector(0.125, 0.125);
 
         // Register drawings

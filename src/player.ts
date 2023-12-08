@@ -1,5 +1,5 @@
 import * as ex from 'excalibur';
-import { girlHurtSpriteSheet, girlIdleSpriteSheet, girlJumpSpriteSheet, girlRunSpriteSheet, boyHurtSpriteSheet, boyIdleSpriteSheet, boyJumpSpriteSheet, boyRunSpriteSheet, Resources, tileSize } from './resources';
+import { girl, boy, Resources, tileSize } from './resources';
 import { Baddie } from './baddie';
 import { stats } from './stats';
 import { Floor } from './floor';
@@ -25,21 +25,11 @@ export class Player extends ex.Actor {
     // OnInitialize is called before the 1st actor update
     onInitialize(engine: ex.Engine) {
         // Initialize actor
-        var hurt_sprite: ex.SpriteSheet;
-        var idle_sprite: ex.SpriteSheet;
-        var jump_sprite: ex.SpriteSheet;
-        var run_sprite: ex.SpriteSheet;
-        if(stats.character=="girl") {
-            hurt_sprite = girlHurtSpriteSheet;
-            idle_sprite = girlIdleSpriteSheet;
-            jump_sprite = girlJumpSpriteSheet;
-            run_sprite = girlRunSpriteSheet;
-        } else {
-            hurt_sprite = boyHurtSpriteSheet;
-            idle_sprite = boyIdleSpriteSheet;
-            jump_sprite = boyJumpSpriteSheet;
-            run_sprite = boyRunSpriteSheet;
-        }
+        const hurt_sprite = stats.character.hurt;
+        const idle_sprite = stats.character.idle;
+        const jump_sprite = stats.character.jump;
+        const run_sprite = stats.character.run;
+        
         // Setup visuals
         const hurtleft = ex.Animation.fromSpriteSheet(hurt_sprite, [0], 80);
         hurtleft.scale = new ex.Vector(0.125, 0.125);

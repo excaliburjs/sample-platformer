@@ -1,4 +1,5 @@
 import * as ex from 'excalibur';
+import { iCharacter } from './icharacter';
 
 const botFile = require('../res/excalibot.png');
 const girlIdleFile = require('../res/girl-idle.png')
@@ -48,78 +49,84 @@ const loader = new ex.Loader();
 
 const tileSize: number = 208/4;
 
-const girlIdleSpriteSheet = ex.SpriteSheet.fromImageSource({
-    image:Resources.girlIdle, 
-    grid: { 
-        columns: 10,
-        rows: 1, 
-        spriteWidth: 641,
-        spriteHeight: 542
-    }
-});
-const girlRunSpriteSheet = ex.SpriteSheet.fromImageSource({
-    image:Resources.girlRun, 
-    grid: { 
-        columns: 8,
-        rows: 1, 
-        spriteWidth: 641,
-        spriteHeight: 542
-    }
-});
-const girlHurtSpriteSheet = ex.SpriteSheet.fromImageSource({
-    image:Resources.girlHurt, 
-    grid: { 
-        columns: 1,
-        rows: 1, 
-        spriteWidth: 641,
-        spriteHeight: 542
-    }
-});
-const girlJumpSpriteSheet = ex.SpriteSheet.fromImageSource({
-    image:Resources.girlJump, 
-    grid: { 
-        columns: 10,
-        rows: 1, 
-        spriteWidth: 641,
-        spriteHeight: 542
-    }
-});
-const boyIdleSpriteSheet = ex.SpriteSheet.fromImageSource({
-    image:Resources.boyIdle, 
-    grid: { 
-        columns: 10,
-        rows: 1, 
-        spriteWidth: 319,
-        spriteHeight: 486
-    }
-});
-const boyRunSpriteSheet = ex.SpriteSheet.fromImageSource({
-    image:Resources.boyRun, 
-    grid: { 
-        columns: 8,
-        rows: 1, 
-        spriteWidth: 415,
-        spriteHeight: 507
-    }
-});
-const boyHurtSpriteSheet = ex.SpriteSheet.fromImageSource({
-    image:Resources.boyHurt, 
-    grid: { 
-        columns: 1,
-        rows: 1, 
-        spriteWidth: 588,
-        spriteHeight: 600
-    }
-});
-const boyJumpSpriteSheet = ex.SpriteSheet.fromImageSource({
-    image:Resources.boyJump, 
-    grid: { 
-        columns: 10,
-        rows: 1, 
-        spriteWidth: 407,
-        spriteHeight: 536
-    }
-});
+const girl: iCharacter = {
+    name: "girl",
+    idle: ex.SpriteSheet.fromImageSource({
+        image:Resources.girlIdle, 
+        grid: { 
+            columns: 10,
+            rows: 1, 
+            spriteWidth: 641,
+            spriteHeight: 542
+        }
+    }),
+    run: ex.SpriteSheet.fromImageSource({
+        image:Resources.girlRun, 
+        grid: { 
+            columns: 8,
+            rows: 1, 
+            spriteWidth: 641,
+            spriteHeight: 542
+        }
+    }),
+    hurt: ex.SpriteSheet.fromImageSource({
+        image:Resources.girlHurt, 
+        grid: { 
+            columns: 1,
+            rows: 1, 
+            spriteWidth: 641,
+            spriteHeight: 542
+        }
+    }),
+    jump: ex.SpriteSheet.fromImageSource({
+        image:Resources.girlJump, 
+        grid: { 
+            columns: 10,
+            rows: 1, 
+            spriteWidth: 641,
+            spriteHeight: 542
+        }
+    }),
+};
+const boy: iCharacter = {
+    name: "boy",
+    idle: ex.SpriteSheet.fromImageSource({
+        image:Resources.boyIdle, 
+        grid: { 
+            columns: 10,
+            rows: 1, 
+            spriteWidth: 319,
+            spriteHeight: 486
+        }
+    }),
+    run: ex.SpriteSheet.fromImageSource({
+        image:Resources.boyRun, 
+        grid: { 
+            columns: 8,
+            rows: 1, 
+            spriteWidth: 415,
+            spriteHeight: 507
+        }
+    }),
+    hurt: ex.SpriteSheet.fromImageSource({
+        image:Resources.boyHurt, 
+        grid: { 
+            columns: 1,
+            rows: 1, 
+            spriteWidth: 588,
+            spriteHeight: 600
+        }
+    }),
+    jump: ex.SpriteSheet.fromImageSource({
+        image:Resources.boyJump, 
+        grid: { 
+            columns: 10,
+            rows: 1, 
+            spriteWidth: 407,
+            spriteHeight: 536
+        }
+    }),
+};
 const botSpriteSheet = ex.SpriteSheet.fromImageSource({
     image:Resources.bot, 
     grid: { 
@@ -176,8 +183,8 @@ for (const res in Resources) {
 
 export { 
     Resources, loader, tileSize,
-    girlIdleSpriteSheet, girlRunSpriteSheet, girlHurtSpriteSheet, girlJumpSpriteSheet,
-    boyIdleSpriteSheet, boyRunSpriteSheet, boyHurtSpriteSheet, boyJumpSpriteSheet,
+    girl,
+    boy,
     botSpriteSheet, botRedSpriteSheet, 
     baddieSpriteSheet, 
     gateOpenSpriteSheet, gateClosedSpriteSheet, 
