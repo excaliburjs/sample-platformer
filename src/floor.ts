@@ -1,10 +1,10 @@
 import * as ex from 'excalibur';
 import { grassFlatSprite, grassBelowSprite, tileSize } from './resources';
 
-export class Floor extends ex.Actor {
+export class Ground extends ex.Actor {
     constructor(x: number, y: number, public cols: number, public rows: number) {
         super({
-            name: 'Floor',
+            name: 'Ground',
             pos: new ex.Vector(x*tileSize, y*tileSize),
             scale: new ex.Vector(tileSize/grassFlatSprite.width, tileSize/grassFlatSprite.width),
             anchor: ex.Vector.Zero,
@@ -23,5 +23,17 @@ export class Floor extends ex.Actor {
                 sprite = grassBelowSprite;
             }
         }
+    }
+}
+
+export class Floor extends Ground {
+    constructor(x: number, y: number, width: number=5) {
+        super(x,y,width,1);
+    }
+}
+
+export class Wall extends Ground {
+    constructor(x: number, y: number, height: number=5) {
+        super(x,y,1,height);
     }
 }

@@ -2,7 +2,7 @@ import * as ex from 'excalibur';
 import { girl, boy, Resources, tileSize } from './resources';
 import { Baddie } from './baddie';
 import { stats } from './stats';
-import { Floor } from './floor';
+import { Ground } from './floor';
 
 export class Player extends ex.Actor {
     public onGround = true;
@@ -71,7 +71,7 @@ export class Player extends ex.Actor {
     onPostCollision(evt: ex.PostCollisionEvent) {
         // Bot has collided with it's Top of another collider
         //console.log(evt.other.name);
-        if (evt.side === ex.Side.Bottom && evt.other instanceof Floor) {
+        if (evt.side === ex.Side.Bottom && evt.other instanceof Ground) {
             this.onGround = true;
         }
 
