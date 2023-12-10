@@ -66,6 +66,10 @@ export class Player extends ex.Actor {
 
         // onPostCollision is an event, not a lifecycle meaning it can be subscribed to by other things
         this.on('postcollision', (evt) => this.onPostCollision(evt));
+        this.on("exitviewport", (evt) => this.onExitViewport(evt));        
+    }
+    onExitViewport(evt: ex.ExitViewPortEvent) {
+        stats.gameOver = true;
     }
 
     onPostCollision(evt: ex.PostCollisionEvent) {

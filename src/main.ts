@@ -5,6 +5,7 @@ import { GameOver } from './scenes/gameover';
 import { stats } from './stats';
 import { PlayerSelect } from './scenes/player-select';
 import { Level1 } from './scenes/level1';
+import { AfterLevel1 } from './scenes/afterLevel1';
 
 const engine = new ex.Engine({
     backgroundColor: ex.Color.fromHex('#5fcde4'),
@@ -32,12 +33,16 @@ engine.add('gameover', gameover);
 const level1 = new Level1();
 engine.add('level1', level1);
 
+const afterLevel1 = new AfterLevel1();
+engine.add('afterLevel1', afterLevel1);
+
 const level2 = new Level2();
 engine.add('level2', level2);
 
 const levels = [
     'playerSelect',
     'level1',
+    'afterLevel1',
     'level2',
     'gameover'
 ];

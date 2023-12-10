@@ -10,6 +10,9 @@ export class Level1 extends LevelLayout {
         engine.add(new Wall(0, 0, 6));
         engine.add(new Wall(11, 0, 6));
         engine.add(new Floor(1, 5, 2));
+        // Voeg hier een regel toe voor een extra vloer
+        engine.add(new Floor(4, 4, 2));
+        
         engine.add(new Floor(9, 5, 2));
         engine.add(new Gate(9, 5, 0));
     }
