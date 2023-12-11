@@ -1,5 +1,6 @@
 import * as ex from 'excalibur';
 import { Resources } from './resources';
+import { StoryScene } from './storyScene';
 
 class TextChild extends ex.ScreenElement {
     constructor(x: number, y: number, public text: ex.Text) {
@@ -29,7 +30,7 @@ export class TextBubble extends ex.ScreenElement {
     textGraph: ex.Text;
     pause: number = 0;
 
-    constructor(engine: ex.Engine, public bubble: Bubble, public texts: string[]) {
+    constructor(public story: StoryScene, public bubble: Bubble, public texts: string[]) {
         super({
             x: bubble.x,
             y: bubble.y,
@@ -49,7 +50,7 @@ export class TextBubble extends ex.ScreenElement {
             repeats: true,
             interval: 50,            
         });
-        engine.currentScene.addTimer(this.timer);
+        story.addTimer(this.timer);
     }
     timerEvent() {
         if (this.pause!=0) {
@@ -64,6 +65,9 @@ export class TextBubble extends ex.ScreenElement {
             this.index+=1;
             if (this.index==this.texts[this.line].length+1) {
                 this.timer.stop();
+                if (this.line == this.texts.length-1) {
+                    this.story.storyIndex -= 1;
+                }
             }
         }
     }
@@ -80,17 +84,28 @@ export class TextBubble extends ex.ScreenElement {
         //this.scale = ex.vec(2,2);
     }
     onPreUpdate(engine: ex.Engine, delta: number) {
-        if(engine.input.keyboard.wasPressed(ex.Input.Keys.Space)) {
+        if(engine.input.keyboard.wasPressed(ex.Input.Keys.Space) || engine.input.keyboard.wasPressed(ex.Input.Keys.Right)) {
             if (this.index!=this.texts[this.line].length+1) {
                 this.textGraph.text = this.texts[this.line];
                 this.index=this.texts[this.line].length+1;
                 this.timer.stop();
+                if (this.line == this.texts.length-1) {
+                    this.story.storyIndex -= 1;
+                }
             } else if (this.line < this.texts.length-1) {
                 this.line += 1;
                 this.index = 0;
                 this.pause = 0;
                 this.textGraph.text = ""
                 this.timer.start();
+            }
+        } else if(engine.input.keyboard.wasPressed(ex.Input.Keys.Left)) {
+            if (this.line > 0) {
+                this.line -= 1;
+                this.index = 0;
+                this.pause = 0;
+                this.textGraph.text = ""
+                this.timer.start();        
             }
         }
     }

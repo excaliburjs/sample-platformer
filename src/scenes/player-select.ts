@@ -3,26 +3,31 @@ import { boy, girl } from '../resources';
 import { stats } from '../stats';
 import { iCharacter } from '../icharacter';
 import { TextBubble } from '../textBubble';
+import { StoryScene } from '../storyScene';
 
 
 class SelectorButton extends ex.ScreenElement {
     public character;
+    flip: boolean;
 
-    constructor(x:number, y:number, sprites: iCharacter) {
+    constructor(public story: StoryScene, x:number, y:number, sprites: iCharacter, flip: boolean = false) {
         super({
             x: x,
             y: y,
             anchor: ex.vec(0.5,1),
         });
         this.character = sprites;
+        this.flip = flip;
     }
     onInitialize() {
         const idle = ex.Animation.fromSpriteSheet(this.character.idle, [0, 1,2,3,4,5,6,7,8,9], 80);
-        idle.scale = new ex.Vector(0.25, 0.25);
+        idle.scale = new ex.Vector(0.5, 0.5);
+        idle.flipHorizontal = this.flip
         this.graphics.add('idle', idle)
 
         const run = ex.Animation.fromSpriteSheet(this.character.run, [0, 1,2,3,4,5,6,7,8,9], 80);
-        run.scale = new ex.Vector(0.25, 0.25);
+        run.scale = new ex.Vector(0.5, 0.5);
+        run.flipHorizontal = this.flip
 
         this.graphics.add('run', run)
         this.graphics.use("idle");
@@ -42,16 +47,13 @@ class SelectorButton extends ex.ScreenElement {
     }
 }
 
-export class PlayerSelect extends ex.Scene {
-    constructor() {
-        super();
-    }
+export class PlayerSelect extends StoryScene {
+    onInitializeStory(engine: ex.Engine) {
+        this.storyIndex = 2;
+        engine.add(new SelectorButton(this, engine.drawWidth/2 + 120, 265, girl, true));
+        engine.add(new SelectorButton(this, engine.drawWidth/2 - 120, 250, boy));
 
-    onInitialize(engine: ex.Engine) {
-        engine.add(new SelectorButton(engine.drawWidth/2 + 100, 150, girl));
-        engine.add(new SelectorButton(engine.drawWidth/2 - 100, 150, boy));
-
-        const bubble = new TextBubble(engine, {x:10, y:200, maxWidth:engine.drawWidth-20, maxHeight:150}, 
+        const bubble = new TextBubble(this, {x:10, y:engine.drawHeight-80, maxWidth:engine.drawWidth-20, maxHeight:80}, 
             [
                 "Hoi, ik ben Alan.", 
                 "En ik ben Ada.", 
