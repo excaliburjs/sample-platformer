@@ -26,14 +26,26 @@ export class Ground extends ex.Actor {
     }
 }
 
+interface FloorArgs {
+    x: number;
+    y: number; 
+    width: number;
+}
+
 export class Floor extends Ground {
-    constructor(x: number, y: number, width: number=5) {
-        super(x,y,width,1);
+    constructor(args: FloorArgs) {
+        super(args.x,args.y,args.width,1);
     }
 }
 
+interface WallArgs {
+    x: number;
+    y: number; 
+    height: number;
+}
+
 export class Wall extends Ground {
-    constructor(x: number, y: number, height: number=5) {
-        super(x,y,1,height);
+    constructor(args: WallArgs) {
+        super(args.x,args.y,1,args.height);
     }
 }
