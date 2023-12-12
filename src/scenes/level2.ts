@@ -4,8 +4,11 @@ import { Ground } from '../floor';
 import { NPC } from '../npc';
 import { Gate } from '../gate';
 import { LevelLayout } from '../levelLayout';
+import { iSceneNode } from '../storyScene';
 
-export class Level2 extends LevelLayout {
+export class Level2 extends LevelLayout implements iSceneNode {
+    thisScene = "level2";
+    nextScene = "gameover";
 
     layoutLevel(engine: ex.Engine) {
 
@@ -15,7 +18,7 @@ export class Level2 extends LevelLayout {
 
         const npc = new NPC(9, 2);
         const gate = new Gate(9, 2, 2);
-        
+
         const wall1 = new Ground(0, 0, 1, 10);
         const wall2 = new Ground(15, 0, 1, 10);
         const floor = new Ground(0, 5, 15, 1);

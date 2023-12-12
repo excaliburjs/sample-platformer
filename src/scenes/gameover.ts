@@ -1,9 +1,10 @@
 import * as ex from 'excalibur';
+import { iSceneNode } from '../storyScene';
+import { stats } from '../stats';
 
-export class GameOver extends ex.Scene {
-    constructor() {
-        super();
-    }
+export class GameOver extends ex.Scene implements iSceneNode {
+    thisScene = "gameover";
+    nextScene = "playerSelect";
 
     onInitialize(engine: ex.Engine) {
         const label = new ex.Label({
@@ -23,5 +24,10 @@ export class GameOver extends ex.Scene {
         //     this.camera.clearAllStrategies();
         //     this.camera.strategy.elasticToActor(actor, 0.05, 0.1);
         // }
+    }
+    onPostUpdate(engine: ex.Engine, _delta: number): void {
+        if(engine.input.keyboard.wasPressed(ex.Input.Keys.Space)) {
+            stats.reset();
+        }
     }
 }

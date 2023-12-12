@@ -6,6 +6,7 @@ import { stats } from './stats';
 import { PlayerSelect } from './scenes/player-select';
 import { Level1 } from './scenes/level1';
 import { BeforeLevel1, BeforeLevel2 } from './scenes/beforeScenes';
+import { iSceneNode } from './storyScene';
 
 const engine = new ex.Engine({
     backgroundColor: ex.Color.fromHex('#5fcde4'),
@@ -24,46 +25,41 @@ ex.CollisionGroupManager.create("floor");
 // Set global gravity, 800 pixels/sec^2
 ex.Physics.acc = new ex.Vector(0, 800);
 
+let nodes: { [name: string]: iSceneNode & ex.Scene; } = {}
+
+function addNode(node: iSceneNode & ex.Scene) {
+    console.log("Adding scene ", node.thisScene, " -> ", node.nextScene);
+    engine.add(node.thisScene, node)
+    nodes[node.thisScene] = node;
+}
+
 const playerSelect = new PlayerSelect();
-engine.add('playerSelect', playerSelect);
+addNode(playerSelect);
 
-const gameover = new GameOver();
-engine.add('gameover', gameover);
+addNode(new BeforeLevel1());
+addNode(new Level1());
+addNode(new BeforeLevel2());
+addNode(new Level2());
+addNode(new GameOver());
 
-const beforeLevel1 = new BeforeLevel1();
-engine.add('beforeLevel1', beforeLevel1);
-
-const level1 = new Level1();
-engine.add('level1', level1);
-
-const beforeLevel2 = new BeforeLevel2();
-engine.add('beforeLevel2', beforeLevel2);
-
-const level2 = new Level2();
-engine.add('level2', level2);
-
-const levels = [
-    'playerSelect',
-    'beforeLevel1',
-    'level1',
-    'beforeLevel2',
-    'level2',
-    'gameover'
-];
-let currentLevel = 0
-engine.goToScene(levels[currentLevel]);
+let currentNode: iSceneNode & ex.Scene = playerSelect;
+engine.goToScene(currentNode.thisScene);
 //engine.showDebug(true);
+
 // Game events to handle
 engine.on('hidden', () => {
     console.log('pause');
     engine.stop();
 });
 engine.on('preupdate', () => {
-    if(stats.nextScene) {
-        currentLevel += 1;
+    if (stats.nextScene) {
+        console.log("switching from ", currentNode.thisScene);
+        currentNode = nodes[currentNode.nextScene];
         stats.nextScene = false;
-        engine.goToScene(levels[currentLevel]);
-    } else if(stats.gameOver) {
+        console.log("switching to ", currentNode.thisScene);
+        engine.goToScene(currentNode.thisScene);
+    } else if (stats.gameOver) {
+        currentNode = nodes["gameover"];
         engine.goToScene('gameover');
     }
 })
@@ -79,4 +75,4 @@ engine.start(loader).then(() => {
 
 // For test hook
 (window as any).engine = engine;
-(window as any).level = level1;
+(window as any).level = playerSelect;

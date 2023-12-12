@@ -2,6 +2,11 @@ import * as ex from 'excalibur';
 import { stats } from './stats';
 import { TextBubble } from './textBubble';
 
+export interface iSceneNode {
+    thisScene: string;
+    nextScene: string;
+}
+
 export class StoryScene extends ex.Scene {
     public storyIndex: number = 0;
 

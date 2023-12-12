@@ -3,7 +3,7 @@ import { boy, girl } from '../resources';
 import { stats } from '../stats';
 import { iCharacter } from '../icharacter';
 import { TextBubble } from '../textBubble';
-import { StoryScene } from '../storyScene';
+import { StoryScene, iSceneNode } from '../storyScene';
 
 
 class SelectorButton extends ex.ScreenElement {
@@ -47,7 +47,10 @@ class SelectorButton extends ex.ScreenElement {
     }
 }
 
-export class PlayerSelect extends StoryScene {
+export class PlayerSelect extends StoryScene implements iSceneNode {
+    thisScene: string = "playerSelect";
+    nextScene: string = "beforeLevel1";
+
     onInitializeStory(engine: ex.Engine) {
         this.storyIndex = 2;
         engine.add(new SelectorButton(this, engine.drawWidth/2 + 120, 265, girl, true));

@@ -1,16 +1,25 @@
-import { BeforeLevelScene } from '../storyScene';
+import { BeforeLevelScene, iSceneNode } from '../storyScene';
 
-export class BeforeLevel1 extends BeforeLevelScene {
+export class BeforeLevel1 extends BeforeLevelScene implements iSceneNode {
+
+    nextScene = "level1";
+    thisScene = "beforeLevel1";
 
     public text = [
-        "In het eerste level kan je me helpen door een vloer (Floor) te\nmaken.",
-        "De code vind je in src/scenes/level1.ts\nSchakel over naar de editor en probeer een vloer toe te voegen." 
+        "De code voor het eerste level vind je in src/scenes/level1.ts\n" +
+        "Kijk eerst maar eens of je dat kan vinden in de EDITOR.",
+        "Als je het level probeert zie je dat ik niet bij de volgende vloer\n" +
+        "kan komen.\n" +
+        "Kan jij ervoor zorgen dat hij lager staat?"
     ]
 }
 export class BeforeLevel2 extends BeforeLevelScene {
+    nextScene = "level2";
+    thisScene = "beforeLevel2";
+
     public text = [
-        "Goed zo!\nJe hebt de eerste opdracht goed gemaakt. Ik leef immers nog!", 
-        "De volgende opdracht wordt iets moeilijker.", 
+        "Goed zo!\nJe hebt de eerste opdracht goed gemaakt. Ik leef immers nog!",
+        "De volgende opdracht wordt iets moeilijker.",
     ]
 }
 
