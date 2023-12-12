@@ -7,6 +7,7 @@ class Stats {
     public assignment: string = "";
     public gameOver: boolean = false;
     public nextScene: boolean = false;
+    public currentNode: string = "playerSelect";
     public score: number = 0;
     public reset() {
         this.health = 100;

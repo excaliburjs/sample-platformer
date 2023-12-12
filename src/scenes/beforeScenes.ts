@@ -13,9 +13,22 @@ export class BeforeLevel1 extends BeforeLevelScene implements iSceneNode {
         "Kan jij ervoor zorgen dat hij lager staat?"
     ]
 }
+
 export class BeforeLevel2 extends BeforeLevelScene {
     nextScene = "level2";
     thisScene = "beforeLevel2";
+
+    public text = [
+        "Goed gedaan!\n" +
+        "In het volgende level is een vloer niet lang genoeg.\n" +
+        "De code voor dit level vind je in src/scenes/level2.ts\n" +
+        "Kan jij ervoor zorgen dat hij langer wordt?"
+    ]
+}
+
+export class BeforeLevel3 extends BeforeLevelScene {
+    nextScene = "level3";
+    thisScene = "beforeLevel3";
 
     public text = [
         "Goed zo!\nJe hebt de eerste opdracht goed gemaakt. Ik leef immers nog!",

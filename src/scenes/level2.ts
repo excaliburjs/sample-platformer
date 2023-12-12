@@ -1,36 +1,30 @@
 import * as ex from 'excalibur';
-import { Baddie } from '../baddie';
-import { Ground } from '../floor';
-import { NPC } from '../npc';
-import { Gate } from '../gate';
 import { LevelLayout } from '../levelLayout';
+import { Floor, Wall } from '../floor';
+import { Gate } from '../gate';
 import { iSceneNode } from '../storyScene';
 
 export class Level2 extends LevelLayout implements iSceneNode {
     thisScene = "level2";
-    nextScene = "gameover";
+    nextScene = "beforeLevel3";
 
     layoutLevel(engine: ex.Engine) {
+        this.playerStartsAt(2, 2);
+        engine.add(new Wall({ x: 0, y: 0, height: 6 }));
+        engine.add(new Floor({ x: 1, y: 5, width: 2 }));
 
-        this.playerStartsAt(9, 2);
-        const baddie = new Baddie(4, 5, 2, 10);
-        const baddie2 = new Baddie(8, 5, 4, 14);
+        // ---
+        // Deze vloer staat te hoog. Zorg dat hij lager staat.
+        engine.add(new Floor({
+            x: 2,
+            y: 7,
+            width: 2
+        }));
+        // LET OP: Na de aanpassing moet je het spel herladen!
+        // ---
 
-        const npc = new NPC(9, 2);
-        const gate = new Gate(9, 2, 2);
-
-        const wall1 = new Ground(0, 0, 1, 10);
-        const wall2 = new Ground(15, 0, 1, 10);
-        const floor = new Ground(0, 5, 15, 1);
-        const otherFloor = new Ground(8, 2, 5, 1);
-
-        engine.add(gate);
-        engine.add(npc);
-        engine.add(baddie);
-        engine.add(baddie2);
-        engine.add(floor);
-        engine.add(wall1);
-        engine.add(wall2);
-        engine.add(otherFloor);
+        engine.add(new Floor({ x: 11, y: 5, width: 2 }));
+        engine.add(new Gate(11, 5, 0));
+        engine.add(new Wall({ x: 13, y: 0, height: 6 }));
     }
 }

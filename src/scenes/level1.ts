@@ -11,7 +11,6 @@ export class Level1 extends LevelLayout implements iSceneNode {
     layoutLevel(engine: ex.Engine) {
         this.playerStartsAt(2, 2);
         engine.add(new Wall({ x: 0, y: 0, height: 6 }));
-        engine.add(new Wall({ x: 11, y: 0, height: 6 }));
         engine.add(new Floor({ x: 1, y: 5, width: 2 }));
 
         // ---
@@ -21,9 +20,11 @@ export class Level1 extends LevelLayout implements iSceneNode {
             y: 1,
             width: 6
         }));
+        // LET OP: Na de aanpassing moet je het spel herladen!
         // ---
 
         engine.add(new Floor({ x: 9, y: 5, width: 2 }));
         engine.add(new Gate(9, 5, 0));
+        engine.add(new Wall({ x: 11, y: 0, height: 6 }));
     }
 }

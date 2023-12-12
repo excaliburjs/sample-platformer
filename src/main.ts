@@ -1,12 +1,13 @@
 import * as ex from 'excalibur';
 import { loader } from './resources';
-import { Level2 } from './scenes/level2';
+import { Level3 } from './scenes/level3';
 import { GameOver } from './scenes/gameover';
 import { stats } from './stats';
 import { PlayerSelect } from './scenes/player-select';
 import { Level1 } from './scenes/level1';
-import { BeforeLevel1, BeforeLevel2 } from './scenes/beforeScenes';
+import { BeforeLevel1, BeforeLevel2, BeforeLevel3 } from './scenes/beforeScenes';
 import { iSceneNode } from './storyScene';
+import { Level2 } from './scenes/level2';
 
 const engine = new ex.Engine({
     backgroundColor: ex.Color.fromHex('#5fcde4'),
@@ -40,10 +41,12 @@ addNode(new BeforeLevel1());
 addNode(new Level1());
 addNode(new BeforeLevel2());
 addNode(new Level2());
+addNode(new BeforeLevel3());
+addNode(new Level3());
 addNode(new GameOver());
 
-let currentNode: iSceneNode & ex.Scene = playerSelect;
-engine.goToScene(currentNode.thisScene);
+stats.currentNode = "playerSelect"
+engine.goToScene(stats.currentNode);
 //engine.showDebug(true);
 
 // Game events to handle
@@ -53,13 +56,13 @@ engine.on('hidden', () => {
 });
 engine.on('preupdate', () => {
     if (stats.nextScene) {
-        console.log("switching from ", currentNode.thisScene);
-        currentNode = nodes[currentNode.nextScene];
+        console.log("switching from ", stats.currentNode);
+        stats.currentNode = nodes[stats.currentNode].nextScene;
         stats.nextScene = false;
-        console.log("switching to ", currentNode.thisScene);
-        engine.goToScene(currentNode.thisScene);
+        console.log("switching to ", stats.currentNode);
+        engine.goToScene(nodes[stats.currentNode].thisScene);
     } else if (stats.gameOver) {
-        currentNode = nodes["gameover"];
+        stats.currentNode = "gameover";
         engine.goToScene('gameover');
     }
 })
