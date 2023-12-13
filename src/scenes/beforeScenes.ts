@@ -26,13 +26,3 @@ export class BeforeLevel2 extends BeforeLevelScene {
     ]
 }
 
-export class BeforeLevel3 extends BeforeLevelScene {
-    nextScene = "level3";
-    thisScene = "beforeLevel3";
-
-    public text = [
-        "Goed zo!\nJe hebt de eerste opdracht goed gemaakt. Ik leef immers nog!",
-        "De volgende opdracht wordt iets moeilijker.",
-    ]
-}
-

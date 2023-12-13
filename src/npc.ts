@@ -1,19 +1,20 @@
 import * as ex from 'excalibur';
 import { girl, npcSprite, tileSize } from './resources';
 import { Player } from './player';
+import { iLocation } from './location';
 
 export class NPC extends ex.Actor {
     public onGround = true;
     public talk = false;
     public hurt = false;
     public hurtTime: number = 0;
-    constructor(x: number, y: number) {
+    constructor(args: iLocation) {
         super({
-            pos: new ex.Vector(x*tileSize, y*tileSize+3),
-            anchor: new ex.Vector(0.5,1),
+            pos: new ex.Vector(args.x * tileSize, args.y * tileSize + 3),
+            anchor: new ex.Vector(0.5, 1),
             collisionType: ex.CollisionType.Passive,
             collisionGroup: ex.CollisionGroupManager.groupByName("enemy"),
-            collider: ex.Shape.Box(32, 50, new ex.Vector(0.5,1))
+            collider: ex.Shape.Box(32, 50, new ex.Vector(0.5, 1))
         });
     }
 
@@ -25,7 +26,7 @@ export class NPC extends ex.Actor {
         this.z = -1;
 
         // Setup visuals
-        const idle = ex.Animation.fromSpriteSheet(girl.idle, [0, 1,2,3,4,5,6,7,8,9], 80);
+        const idle = ex.Animation.fromSpriteSheet(girl.idle, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 80);
         idle.scale = new ex.Vector(0.125, 0.125);
 
         const left = ex.Animation.fromSpriteSheet(girl.run, [0, 1, 2, 3, 4, 5, 6, 7], 80);
@@ -45,11 +46,11 @@ export class NPC extends ex.Actor {
         // For the test harness to be predicable
         if (!(window as any).__TESTING) {
             this.actions.delay(1000)
-                        .repeatForever(ctx => ctx
-                            .moveBy(200, 0, 100)
-                            .delay(1000)
-                            .moveBy(-200, 0, 100)
-                            .delay(1000));
+                .repeatForever(ctx => ctx
+                    .moveBy(150, 0, 100)
+                    .delay(1000)
+                    .moveBy(-150, 0, 100)
+                    .delay(1000));
         }
         this.on('collisionstart', (evt) => this.onCollisionStart(evt));
         this.on('collisionend', (evt) => this.onCollisionEnd(evt));
@@ -65,13 +66,13 @@ export class NPC extends ex.Actor {
     }
 
     onCollisionStart(evt: ex.CollisionStartEvent) {
-        if (evt.other instanceof Player){
+        if (evt.other instanceof Player) {
             this.talk = true;
         }
     }
 
     onCollisionEnd(evt: ex.CollisionEndEvent) {
-        if (evt.other instanceof Player){
+        if (evt.other instanceof Player) {
             this.talk = false;
         }
     }

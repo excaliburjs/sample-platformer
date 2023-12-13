@@ -10,22 +10,22 @@ class SelectorButton extends ex.ScreenElement {
     public character;
     flip: boolean;
 
-    constructor(public story: StoryScene, x:number, y:number, sprites: iCharacter, flip: boolean = false) {
+    constructor(public story: StoryScene, x: number, y: number, sprites: iCharacter, flip: boolean = false) {
         super({
             x: x,
             y: y,
-            anchor: ex.vec(0.5,1),
+            anchor: ex.vec(0.5, 1),
         });
         this.character = sprites;
         this.flip = flip;
     }
     onInitialize() {
-        const idle = ex.Animation.fromSpriteSheet(this.character.idle, [0, 1,2,3,4,5,6,7,8,9], 80);
+        const idle = ex.Animation.fromSpriteSheet(this.character.idle, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 80);
         idle.scale = new ex.Vector(0.5, 0.5);
         idle.flipHorizontal = this.flip
         this.graphics.add('idle', idle)
 
-        const run = ex.Animation.fromSpriteSheet(this.character.run, [0, 1,2,3,4,5,6,7,8,9], 80);
+        const run = ex.Animation.fromSpriteSheet(this.character.run, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 80);
         run.scale = new ex.Vector(0.5, 0.5);
         run.flipHorizontal = this.flip
 
@@ -36,11 +36,11 @@ class SelectorButton extends ex.ScreenElement {
             stats.character = this.character;
             stats.nextScene = true;
         })
-    
+
         this.on('pointerenter', () => {
             this.graphics.use('run');
         })
-    
+
         this.on('pointerleave', () => {
             this.graphics.use('idle');
         })
@@ -49,18 +49,18 @@ class SelectorButton extends ex.ScreenElement {
 
 export class PlayerSelect extends StoryScene implements iSceneNode {
     thisScene: string = "playerSelect";
-    nextScene: string = "beforeLevel1";
+    nextScene: string = "example";
 
     onInitializeStory(engine: ex.Engine) {
         this.storyIndex = 2;
-        engine.add(new SelectorButton(this, engine.drawWidth/2 + 120, 265, girl, true));
-        engine.add(new SelectorButton(this, engine.drawWidth/2 - 120, 250, boy));
+        engine.add(new SelectorButton(this, engine.drawWidth / 2 + 120, 265, girl, true));
+        engine.add(new SelectorButton(this, engine.drawWidth / 2 - 120, 250, boy));
 
-        const bubble = new TextBubble(this, {x:10, y:engine.drawHeight-80, maxWidth:engine.drawWidth-20, maxHeight:80}, 
+        const bubble = new TextBubble(this, { x: 10, y: engine.drawHeight - 80, maxWidth: engine.drawWidth - 20, maxHeight: 80 },
             [
-                "Hoi, ik ben Alan.", 
-                "En ik ben Ada.", 
-                "Jij mag ons door het doolhof helpen door te programmeren.\nMaar wees niet bang! Daar kunnen wij jou bij helpen!", 
+                "Hoi, ik ben Alan.",
+                "En ik ben Ada.",
+                "Jij mag ons door het doolhof helpen door te programmeren.\nMaar wees niet bang! Daar kunnen wij jou bij helpen!",
                 "Maar eerst mag je kiezen met wie je wilt spelen."
             ]);
         engine.add(bubble);

@@ -2,6 +2,7 @@ import * as ex from 'excalibur';
 import { Player } from './player';
 import { stats } from './stats';
 import { iSceneNode } from './storyScene';
+import { iLocation } from './location';
 
 export class LevelLayout extends ex.Scene implements iSceneNode {
     thisScene: string = "";
@@ -12,8 +13,8 @@ export class LevelLayout extends ex.Scene implements iSceneNode {
     layoutLevel(engine: ex.Engine) {
 
     }
-    playerStartsAt(x: number, y: number) {
-        this.playerStart = ex.vec(x, y);
+    playerStartsAt(args: iLocation) {
+        this.playerStart = ex.vec(args.x, args.y);
     }
     onInitialize(engine: ex.Engine) {
 
