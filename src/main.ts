@@ -46,7 +46,7 @@ addNode(new GameOver());
 
 stats.currentNode = "playerSelect"
 engine.goToScene(stats.currentNode);
-//engine.showDebug(true);
+let showDebug = false;
 
 // Game events to handle
 engine.on('hidden', () => {
@@ -54,6 +54,10 @@ engine.on('hidden', () => {
     engine.stop();
 });
 engine.on('preupdate', () => {
+    if (engine.input.keyboard.wasPressed(ex.Input.Keys.Escape)) {
+        showDebug = !showDebug;
+        engine.showDebug(showDebug);
+    }
     if (stats.nextScene) {
         console.log("switching from ", stats.currentNode);
         stats.currentNode = nodes[stats.currentNode].nextScene;

@@ -3,11 +3,12 @@ import { gateOpenSpriteSheet, gateClosedSpriteSheet, tileSize } from './resource
 import { Player } from './player';
 import { stats } from './stats';
 import { iLocation } from './location';
+import { iArtifact } from './iartifact';
 
 export interface GateArgs extends iLocation {
     goal: number;
 }
-export class Gate extends ex.Actor {
+export class Gate extends ex.Actor implements iArtifact {
     public isOpen = false;
 
     constructor(args: GateArgs) {
@@ -45,15 +46,20 @@ export class Gate extends ex.Actor {
             }
         }
     }
+    activateArtifact(player: Player) {
+        if (this.isOpen) {
+            stats.nextScene = true;
+        }
+    }
     onCollisionStart(evt: ex.CollisionStartEvent) {
         if (evt.other instanceof Player) {
-            evt.other.atGate = this.isOpen;
+            evt.other.atArtifact = this;
         }
     }
 
     onCollisionEnd(evt: ex.CollisionEndEvent) {
         if (evt.other instanceof Player) {
-            evt.other.atGate = false;
+            evt.other.atArtifact = null;
         }
     }
 

@@ -16,13 +16,17 @@ export class LevelLayout extends ex.Scene implements iSceneNode {
     playerStartsAt(args: iLocation) {
         this.playerStart = ex.vec(args.x, args.y);
     }
+    initCamera(player: ex.Actor) {
+        this.camera.clearAllStrategies();
+        this.camera.strategy.elasticToActor(player, 0.05, 0.1);
+    }
     onInitialize(engine: ex.Engine) {
 
         this.layoutLevel(engine);
 
-        const actor = new Player(this.playerStart.x, this.playerStart.y);
+        const player = new Player(this.playerStart.x, this.playerStart.y);
 
-        engine.add(actor);
+        engine.add(player);
         let assignment = "src/scenes/" + this.thisScene + ".ts";
 
         const scoreLabel = new ex.Label({
@@ -54,9 +58,7 @@ export class LevelLayout extends ex.Scene implements iSceneNode {
 
         // For the test harness to be predicable
         if (!(window as any).__TESTING) {
-            // Create camera strategy
-            this.camera.clearAllStrategies();
-            this.camera.strategy.elasticToActor(actor, 0.05, 0.1);
+            this.initCamera(player);
         }
     }
 }

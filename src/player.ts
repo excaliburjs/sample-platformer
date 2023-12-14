@@ -3,13 +3,15 @@ import { girl, boy, Resources, tileSize } from './resources';
 import { Baddie } from './baddie';
 import { stats } from './stats';
 import { Ground } from './ground';
+import { iArtifact } from './iartifact';
 
 export class Player extends ex.Actor {
     public onGround = true;
-    public atGate = false;
+    public atArtifact: iArtifact | null = null;
     public jumped = false;
     public hurt = false;
     public hurtTime: number = 0;
+    public scaleTarget: number = 1;
 
     constructor(x: number, y: number) {
         super({
@@ -31,29 +33,30 @@ export class Player extends ex.Actor {
         const run_sprite = stats.character.run;
 
         // Setup visuals
+        const scale = new ex.Vector(0.125, 0.125);
         const hurtleft = ex.Animation.fromSpriteSheet(hurt_sprite, [0], 80);
-        hurtleft.scale = new ex.Vector(0.125, 0.125);
+        hurtleft.scale = scale;
         hurtleft.flipHorizontal = true;
 
         const hurtright = ex.Animation.fromSpriteSheet(hurt_sprite, [0], 80);
-        hurtright.scale = new ex.Vector(0.125, 0.125);
+        hurtright.scale = scale;
 
         const idle = ex.Animation.fromSpriteSheet(idle_sprite, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 80);
-        idle.scale = new ex.Vector(0.125, 0.125);
+        idle.scale = scale;
 
         const jumpleft = ex.Animation.fromSpriteSheet(jump_sprite, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 80);
-        jumpleft.scale = new ex.Vector(0.125, 0.125);
+        jumpleft.scale = scale;
         jumpleft.flipHorizontal = true;
 
         const jumpright = ex.Animation.fromSpriteSheet(jump_sprite, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 80);
-        jumpright.scale = new ex.Vector(0.125, 0.125);
+        jumpright.scale = scale;
 
         const left = ex.Animation.fromSpriteSheet(run_sprite, [0, 1, 2, 3, 4, 5, 6, 7], 40);
-        left.scale = new ex.Vector(0.125, 0.125);
+        left.scale = scale;
         left.flipHorizontal = true;
 
         const right = ex.Animation.fromSpriteSheet(run_sprite, [0, 1, 2, 3, 4, 5, 6, 7], 40);
-        right.scale = new ex.Vector(0.125, 0.125);
+        right.scale = scale;
 
         // Register animations with actor
         this.graphics.add("hurtleft", hurtleft);
@@ -84,6 +87,7 @@ export class Player extends ex.Actor {
             evt.side === ex.Side.Right) &&
             evt.other instanceof Baddie) {
             if (!this.hurt) {
+                // this.scene.camera.zoomOverTime(2, 500);
                 if (this.vel.x < 0) {
                     this.graphics.use("hurtleft");
                 } else {
@@ -112,6 +116,13 @@ export class Player extends ex.Actor {
 
     // After main update, once per frame execute this code
     onPreUpdate(engine: ex.Engine, delta: number) {
+        if (this.scale.x < this.scaleTarget) {
+            const new_scale = Math.min(this.scale.x + 0.01, this.scaleTarget);
+            this.scale = ex.vec(new_scale, new_scale);
+        } else if (this.scaleTarget < this.scale.x) {
+            const new_scale = Math.max(this.scale.x - 0.01, this.scaleTarget);
+            this.scale = ex.vec(new_scale, new_scale);
+        }
         // If hurt, count down
         if (this.hurt) {
             this.hurtTime -= delta;
@@ -121,22 +132,21 @@ export class Player extends ex.Actor {
             this.vel.x = 0;
             // Player input
             if (engine.input.keyboard.isHeld(ex.Input.Keys.Left)) {
-                this.vel.x = -200;
+                this.vel.x = -200 * this.scaleTarget;
             }
 
             if (engine.input.keyboard.isHeld(ex.Input.Keys.Right)) {
-                this.vel.x = 200;
+                this.vel.x = 200 * this.scaleTarget;
             }
 
+            if (engine.input.keyboard.wasPressed(ex.Input.Keys.Space) && this.atArtifact !== null) {
+                this.atArtifact.activateArtifact(this);
+            }
             if (engine.input.keyboard.wasPressed(ex.Input.Keys.Up) && this.onGround) {
-                if (this.atGate) {
-                    stats.nextScene = true;
-                } else {
-                    this.vel.y = -tileSize * 10;
-                    this.onGround = false;
-                    this.graphics.use("jumpleft");
-                    Resources.jump.play(.1);
-                }
+                this.vel.y = -tileSize * 20 * Math.sqrt(this.scaleTarget / 3);
+                this.onGround = false;
+                this.graphics.use("jumpleft");
+                Resources.jump.play(.1);
             }
         }
 
