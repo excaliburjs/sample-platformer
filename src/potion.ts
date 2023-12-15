@@ -1,48 +1,27 @@
-import * as ex from 'excalibur';
-import { potionPurpleSprite, tileSize } from './resources';
+import { potionPurpleSprite, potionYellowSprite } from './resources';
 import { Player } from './player';
-import { stats } from './stats';
 import { iLocation } from './location';
-import { iArtifact } from './iartifact';
+import { Artifact } from './artifact';
 
 interface PotionArgs extends iLocation {
     scaleTo: number;
 }
 
-export class Potion extends ex.Actor implements iArtifact {
+export class Potion extends Artifact {
     public scaleTo = 0.5;
 
     constructor(args: PotionArgs) {
-        super({
-            name: 'Potion',
-            pos: new ex.Vector(args.x * tileSize, args.y * tileSize),
-            scale: new ex.Vector(0.5, 0.5),
-            anchor: ex.Vector.Down,
-            collider: ex.Shape.Box(tileSize, tileSize, ex.Vector.Down),
-            collisionType: ex.CollisionType.Passive,
-            collisionGroup: ex.CollisionGroupManager.groupByName("floor"),
-        });
+        super({ ...args });
         this.scaleTo = args.scaleTo;
-        this.graphics.show(potionPurpleSprite);
-
-        this.on('collisionstart', (evt) => this.onCollisionStart(evt));
-        this.on('collisionend', (evt) => this.onCollisionEnd(evt));
+        if (args.scaleTo < 1) {
+            this.graphics.show(potionPurpleSprite);
+        } else {
+            this.graphics.show(potionYellowSprite);
+        }
     }
     activateArtifact(player: Player) {
         this.scene.camera.zoomOverTime(1 / this.scaleTo, 2000);
         player.scaleTarget = this.scaleTo;
-        this.kill();
+        this.kill(10);
     }
-    onCollisionStart(evt: ex.CollisionStartEvent) {
-        if (evt.other instanceof Player) {
-            evt.other.atArtifact = this;
-        }
-    }
-
-    onCollisionEnd(evt: ex.CollisionEndEvent) {
-        if (evt.other instanceof Player) {
-            evt.other.atArtifact = null;
-        }
-    }
-
 }

@@ -17,6 +17,7 @@ const gateOpenFile = require('../res/Door_Open_Dark_Top_Round.png');
 const grassFlatFile = require('../res/Grass_Tile_Flat.png');
 const grassBelowFile = require('../res/Grass_Tile_lower.png');
 const potionPurpleFile = require('../res/Potion_Sm_Purple.png');
+const potionYellowFile = require('../res/Potion_Sm_Yellow.png');
 const blockFile = require('../res/block.png');
 const npcFile = require('../res/npc.png');
 const jumpSound = require('../res/jump.wav');
@@ -40,6 +41,7 @@ const Resources = {
     grassFlat: new ex.ImageSource(grassFlatFile),
     grassBelow: new ex.ImageSource(grassBelowFile),
     potionPurple: new ex.ImageSource(potionPurpleFile),
+    potionYellow: new ex.ImageSource(potionYellowFile),
     block: new ex.ImageSource(blockFile),
     npc: new ex.ImageSource(npcFile),
     jump: new ex.Sound(jumpSound),
@@ -175,6 +177,7 @@ const gateOpenSpriteSheet = ex.SpriteSheet.fromImageSource({
     }
 });
 const potionPurpleSprite = Resources.potionPurple.toSprite();
+const potionYellowSprite = Resources.potionYellow.toSprite();
 const blockSprite = Resources.block.toSprite();
 const grassFlatSprite = Resources.grassFlat.toSprite();
 const grassBelowSprite = Resources.grassBelow.toSprite();
@@ -191,7 +194,7 @@ export {
     botSpriteSheet, botRedSpriteSheet,
     baddieSpriteSheet,
     gateOpenSpriteSheet, gateClosedSpriteSheet,
-    potionPurpleSprite,
+    potionPurpleSprite, potionYellowSprite,
     blockSprite,
     grassFlatSprite, grassBelowSprite,
     npcSprite
