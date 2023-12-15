@@ -1,6 +1,7 @@
 export interface iLocation {
     x: number;
     y: number;
+    scale?: number;
 }
 export interface iWall extends iLocation {
     down: number;

@@ -4,10 +4,11 @@ import { iBox, iFloor, iWall } from './location';
 
 export class Ground extends ex.Actor {
     constructor(args: iBox) {
+        const scale = (args.scale !== undefined ? args.scale : 1) * tileSize;
         super({
             name: 'Ground',
-            pos: new ex.Vector(args.x * tileSize, args.y * tileSize),
-            scale: new ex.Vector(tileSize / grassFlatSprite.width, tileSize / grassFlatSprite.width),
+            pos: new ex.Vector(args.x * scale, args.y * scale),
+            scale: new ex.Vector(scale / grassFlatSprite.width, scale / grassFlatSprite.width),
             anchor: ex.Vector.Zero,
             collider: ex.Shape.Box(4 * tileSize * args.right, 4 * tileSize * args.down, ex.Vector.Zero),
             collisionType: ex.CollisionType.Fixed,
