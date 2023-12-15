@@ -25,14 +25,14 @@ export class Example extends LevelLayout implements iSceneNode {
         engine.add(new Floor({ x: 1, y: 11, right: 1 }));
         engine.add(new Floor({ x: 1, y: 9, right: 1 }));
         engine.add(new Floor({ x: 1, y: 7, right: 1 }));
-        engine.add(new Potion({ x: 1, y: 7, scaleTo: 1 }));
+        engine.add(new Potion({ x: 1, y: 7, potionColor: "yellow" }));
 
         engine.add(new Ground({ x: 2 * 2, y: 3 * 2, down: 15.5 * 2, right: 2, scale: 0.5 }));
         engine.add(new Floor({ x: 4, y: 5, right: 5 }));
 
         engine.add(new Floor({ x: 3, y: 13, right: 2 }));
         engine.add(new Floor({ x: 3, y: 16, right: 1 }));
-        engine.add(new Potion({ x: 3, y: 16, scaleTo: 0.5 }));
+        engine.add(new Potion({ x: 3, y: 16, potionColor: "purple" }));
 
         this.playerStartsAt({ x: 4, y: 12 });
         engine.add(new Baddie({ x: 4, y: 15 }));

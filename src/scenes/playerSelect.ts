@@ -53,15 +53,15 @@ export class PlayerSelect extends StoryScene implements iSceneNode {
 
     onInitializeStory(engine: ex.Engine) {
         this.storyIndex = 2;
-        engine.add(new SelectorButton(this, engine.drawWidth / 2 + 120, 265, girl, true));
-        engine.add(new SelectorButton(this, engine.drawWidth / 2 - 120, 250, boy));
+        engine.add(new SelectorButton(this, engine.drawWidth / 2 + 120, 365, girl, true));
+        engine.add(new SelectorButton(this, engine.drawWidth / 2 - 120, 350, boy));
 
         const bubble = new TextBubble(this, { x: 10, y: engine.drawHeight - 80, maxWidth: engine.drawWidth - 20, maxHeight: 80 },
             [
-                "Hoi, ik ben Alan.",
-                "En ik ben Ada.",
-                "Jij mag ons door het doolhof helpen door te programmeren.\nMaar wees niet bang! Daar kunnen wij jou bij helpen!",
-                "Maar eerst mag je kiezen met wie je wilt spelen."
+                "Hoi, wij zijn Alan en Ada.",
+                "Je kan ons door het doolhof helpen met de pijltjes, de spatiebalk, en wat programmeren.\n" +
+                "Met wie wil jij door het doolhof?",
+                "Klik op degene met wie je wilt spelen."
             ]);
         engine.add(bubble);
 

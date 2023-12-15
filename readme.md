@@ -19,4 +19,5 @@ Play sample [here](https://excaliburjs.com/sample-platformer)
 
 # Credits
 
-* [Platform Asset Pack By Cam Tatz (@CamTatz)](https://opengameart.org/content/platformer-asset-pack-1)
+* Tiles from: [Platform Asset Pack By Cam Tatz (@CamTatz)](https://opengameart.org/content/platformer-asset-pack-1)
+* Alan and Ada from: [Game Art 2D](https://www.gameart2d.com/freebies.html)

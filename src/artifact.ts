@@ -13,7 +13,7 @@ export class Artifact extends Actor implements iArtifact {
             pos: new ex.Vector(args.x * tileSize, args.y * tileSize),
             scale: new ex.Vector(0.5, 0.5),
             anchor: ex.Vector.Down,
-            collider: ex.Shape.Box(tileSize, tileSize, ex.vec(0.5,1)),
+            collider: ex.Shape.Box(tileSize, tileSize, ex.vec(0, 1)),
             collisionType: ex.CollisionType.Passive,
             collisionGroup: ex.CollisionGroupManager.groupByName("floor"),
         });

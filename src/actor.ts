@@ -10,4 +10,10 @@ export class Actor extends ex.Actor {
         }
         super.kill();
     }
+    killAfter(seconds: number, respawn?: number, cb?: () => void): void {
+        this.scene.engine.clock.schedule(() => {
+            if (cb !== undefined) cb();
+            this.kill(respawn);
+        }, seconds * 1000);
+    }
 }
