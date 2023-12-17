@@ -3,14 +3,14 @@ import { boy, girl } from '../resources';
 import { stats } from '../stats';
 import { iCharacter } from '../icharacter';
 import { TextBubble } from '../textBubble';
-import { StoryScene, iSceneNode } from '../storyScene';
+import { iSceneNode } from '../storyScene';
 
 
 class SelectorButton extends ex.ScreenElement {
     public character;
     flip: boolean;
 
-    constructor(public story: StoryScene, x: number, y: number, sprites: iCharacter, flip: boolean = false) {
+    constructor(x: number, y: number, sprites: iCharacter, flip: boolean = false) {
         super({
             x: x,
             y: y,
@@ -46,24 +46,40 @@ class SelectorButton extends ex.ScreenElement {
         })
     }
 }
+function sequence(scene: ex.Scene, actors: ex.Actor[]): void {
+    function fn(last: ex.Actor | null, cur: ex.Actor): ex.Actor {
+        if (last === null) {
+            scene.add(cur);
+        } else {
+            last.on(`sequence-${last.id}`, () => {
+                scene.add(cur);
+            });
+        }
+        return cur;
+    }
+    actors.reduce(fn, null);
+}
 
-export class PlayerSelect extends StoryScene implements iSceneNode {
+export class PlayerSelect extends ex.Scene implements iSceneNode {
     thisScene: string = "playerSelect";
     nextScene: string = "example";
 
-    onInitializeStory(engine: ex.Engine) {
-        this.storyIndex = 2;
-        engine.add(new SelectorButton(this, engine.drawWidth / 2 + 120, 365, girl, true));
-        engine.add(new SelectorButton(this, engine.drawWidth / 2 - 120, 350, boy));
+    onInitialize(engine: ex.Engine) {
+        engine.add(new SelectorButton(engine.drawWidth / 2 + 120, 365, girl, true));
+        engine.add(new SelectorButton(engine.drawWidth / 2 - 120, 350, boy));
 
-        const bubble = new TextBubble(this, { x: 10, y: engine.drawHeight - 80, maxWidth: engine.drawWidth - 20, maxHeight: 80 },
+        const bubble = new TextBubble({ x: 10, y: engine.drawHeight - 80, right: engine.drawWidth - 20, down: 80 },
             [
-                "Hoi, wij zijn Alan en Ada.",
+                "Hoi, ik ben Alan."
+            ]);
+        const bubble2 = new TextBubble({ x: 10, y: engine.drawHeight - 280, right: engine.drawWidth - 20, down: 80 },
+            [
+                "En ik ben Ada.",
                 "Je kan ons door het doolhof helpen met de pijltjes, de spatiebalk, en wat programmeren.\n" +
                 "Met wie wil jij door het doolhof?",
                 "Klik op degene met wie je wilt spelen."
             ]);
-        engine.add(bubble);
+        sequence(this, [bubble, bubble2]);
 
         // For the test harness to be predicable
         // if (!(window as any).__TESTING) {
