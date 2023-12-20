@@ -1,7 +1,7 @@
 import * as ex from 'excalibur';
-import { girl, npcSprite, tileSize } from './resources';
+import { girl, npcSprite, tileSize } from '../core/resources';
 import { Player } from './player';
-import { iLocation } from './location';
+import { iLocation } from '../core/location';
 
 export class NPC extends ex.Actor {
     public onGround = true;

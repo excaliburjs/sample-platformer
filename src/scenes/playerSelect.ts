@@ -1,9 +1,9 @@
 import * as ex from 'excalibur';
-import { boy, girl } from '../resources';
-import { stats } from '../stats';
-import { iCharacter } from '../icharacter';
-import { TextBubble } from '../textBubble';
-import { iSceneNode } from '../storyScene';
+import { boy, girl } from '../core/resources';
+import { stats } from '../core/stats';
+import { iCharacter } from '../core/icharacter';
+import { TextBubble } from '../core/textBubble';
+import { iSceneNode } from '../core/storyScene';
 
 
 class SelectorButton extends ex.ScreenElement {

@@ -1,9 +1,9 @@
 import * as ex from 'excalibur';
-import { gateOpenSpriteSheet, gateClosedSpriteSheet, tileSize } from './resources';
+import { gateOpenSpriteSheet, gateClosedSpriteSheet, tileSize } from '../core/resources';
 import { Player } from './player';
-import { stats } from './stats';
-import { iLocation } from './location';
-import { iArtifact } from './iartifact';
+import { stats } from '../core/stats';
+import { iLocation } from '../core/location';
+import { iArtifact } from '../core/iartifact';
 
 export interface GateArgs extends iLocation {
     goal: number;

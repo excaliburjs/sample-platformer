@@ -1,9 +1,9 @@
 import * as ex from 'excalibur';
-import { baddieSpriteSheet, Resources, tileSize } from "./resources";
+import { baddieSpriteSheet, Resources, tileSize } from "../core/resources";
 import { Player } from './player';
-import { stats } from './stats';
+import { stats } from '../core/stats';
 import { Ground } from './ground';
-import { iLocation } from './location';
+import { iLocation } from '../core/location';
 
 export class Baddie extends ex.Actor {
     public hit = false;

@@ -1,8 +1,8 @@
 import * as ex from 'excalibur';
-import { potionPurpleSprite, potionYellowSprite, tileSize } from './resources';
+import { potionPurpleSprite, potionYellowSprite, tileSize } from '../core/resources';
 import { Player } from './player';
-import { iLocation } from './location';
-import { Artifact } from './artifact';
+import { iLocation } from '../core/location';
+import { Artifact } from '../core/artifact';
 
 interface PotionArgs extends iLocation {
     potionColor: "purple" | "yellow";
@@ -12,7 +12,7 @@ export class Potion extends Artifact {
     public potionColor: string;
 
     constructor(args: PotionArgs) {
-        super({ ...args });
+        super({ name: "Potion", ...args });
         this.potionColor = args.potionColor;
         switch (this.potionColor) {
             case "purple":

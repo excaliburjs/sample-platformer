@@ -1,5 +1,5 @@
 import * as ex from 'excalibur';
-import { Player } from './player';
+import { Player } from '../actors/player';
 import { stats } from './stats';
 import { iSceneNode } from './storyScene';
 import { iLocation } from './location';

@@ -1,7 +1,7 @@
 import * as ex from 'excalibur';
-import { sandHalfSprite, tileSize } from './resources';
+import { sandHalfSprite, tileSize } from '../core/resources';
 import { Player } from './player';
-import { iLocation } from './location';
+import { iLocation } from '../core/location';
 
 export interface LiftArgs {
     startPos: iLocation;

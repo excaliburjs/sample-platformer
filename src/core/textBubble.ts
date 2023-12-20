@@ -33,7 +33,7 @@ export class TextBubble extends ex.ScreenElement {
             ctx.z = this.z - 0.5;
             ctx.translate(0, -20);
             ctx.opacity = this.graphics.opacity;
-            ctx.drawRectangle(ex.vec(-5, 0), bubble.right+10, bubble.down, ex.Color.White, ex.Color.Black, 1);
+            ctx.drawRectangle(ex.vec(-5, 0), bubble.right + 10, bubble.down, ex.Color.White, ex.Color.Black, 1);
             ctx.restore();
         };
         this.timer = new ex.Timer({

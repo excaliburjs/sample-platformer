@@ -1,12 +1,12 @@
 import * as ex from 'excalibur';
-import { loader } from './resources';
+import { loader } from './core/resources';
 import { Example } from './scenes/example';
 import { GameOver } from './scenes/gameover';
-import { stats } from './stats';
+import { stats } from './core/stats';
 import { PlayerSelect } from './scenes/playerSelect';
 import { Level1 } from './scenes/level1';
 import { BeforeLevel1, BeforeLevel2 } from './scenes/beforeScenes';
-import { iSceneNode } from './storyScene';
+import { iSceneNode } from './core/storyScene';
 import { Level2 } from './scenes/level2';
 
 const engine = new ex.Engine({

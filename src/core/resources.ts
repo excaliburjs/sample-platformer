@@ -1,29 +1,29 @@
 import * as ex from 'excalibur';
 import { iCharacter } from './icharacter';
 
-const botFile = require('../res/excalibot.png');
-const girlIdleFile = require('../res/girl-idle.png')
-const girlRunFile = require('../res/girl-run.png')
-const girlHurtFile = require('../res/girl-hurt.png')
-const girlJumpFile = require('../res/girl-jump.png')
-const boyIdleFile = require('../res/boy-idle.png')
-const boyRunFile = require('../res/boy-run.png')
-const boyHurtFile = require('../res/boy-hurt.png')
-const boyJumpFile = require('../res/boy-jump.png')
-const botRedFile = require('../res/excalibot-red.png');
-const baddieFile = require('../res/baddie.png');
-const gateClosedFile = require('../res/Door_Closed_Dark_Top_Round.png');
-const gateOpenFile = require('../res/Door_Open_Dark_Top_Round.png');
-const grassFlatFile = require('../res/Grass_Tile_Flat.png');
-const grassBelowFile = require('../res/Grass_Tile_lower.png');
-const sandHalfFile = require('../res/Sand_Tile_Half_Round-01.png');
-const potionPurpleFile = require('../res/Potion_Sm_Purple.png');
-const potionYellowFile = require('../res/Potion_Sm_Yellow.png');
-const blockFile = require('../res/block.png');
-const npcFile = require('../res/npc.png');
-const jumpSound = require('../res/jump.wav');
-const hitSound = require('../res/hurt.wav');
-const gotEmSound = require('../res/gottem.wav');
+const botFile = require('../../res/excalibot.png');
+const girlIdleFile = require('../../res/girl-idle.png')
+const girlRunFile = require('../../res/girl-run.png')
+const girlHurtFile = require('../../res/girl-hurt.png')
+const girlJumpFile = require('../../res/girl-jump.png')
+const boyIdleFile = require('../../res/boy-idle.png')
+const boyRunFile = require('../../res/boy-run.png')
+const boyHurtFile = require('../../res/boy-hurt.png')
+const boyJumpFile = require('../../res/boy-jump.png')
+const botRedFile = require('../../res/excalibot-red.png');
+const baddieFile = require('../../res/baddie.png');
+const gateClosedFile = require('../../res/Door_Closed_Dark_Top_Round.png');
+const gateOpenFile = require('../../res/Door_Open_Dark_Top_Round.png');
+const grassFlatFile = require('../../res/Grass_Tile_Flat.png');
+const grassBelowFile = require('../../res/Grass_Tile_lower.png');
+const sandHalfFile = require('../../res/Sand_Tile_Half_Round-01.png');
+const potionPurpleFile = require('../../res/Potion_Sm_Purple.png');
+const potionYellowFile = require('../../res/Potion_Sm_Yellow.png');
+const blockFile = require('../../res/block.png');
+const npcFile = require('../../res/npc.png');
+const jumpSound = require('../../res/jump.wav');
+const hitSound = require('../../res/hurt.wav');
+const gotEmSound = require('../../res/gottem.wav');
 
 const Resources = {
     bot: new ex.ImageSource(botFile),

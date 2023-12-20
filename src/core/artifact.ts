@@ -3,13 +3,17 @@ import { Actor } from "./actor";
 import { iArtifact } from "./iartifact";
 import { iLocation } from "./location";
 import { tileSize } from './resources';
-import { Player } from './player';
+import { Player } from '../actors/player';
+
+export interface ArtifactArgs extends iLocation {
+    name: string;
+}
 
 export class Artifact extends Actor implements iArtifact {
 
-    constructor(args: iLocation) {
+    constructor(args: ArtifactArgs) {
         super({
-            name: 'Potion',
+            name: args.name,
             pos: new ex.Vector(args.x * tileSize, args.y * tileSize),
             scale: new ex.Vector(0.5, 0.5),
             anchor: ex.Vector.Down,

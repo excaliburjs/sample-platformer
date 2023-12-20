@@ -1,13 +1,13 @@
 import * as ex from 'excalibur';
-import { Baddie } from '../baddie';
-import { Floor, Ground, Wall } from '../ground';
-import { NPC } from '../npc';
-import { Gate } from '../gate';
-import { LevelLayout } from '../levelLayout';
-import { iSceneNode } from '../storyScene';
-import { Potion } from '../potion';
-import { tileSize } from '../resources';
-import { Lift } from '../lift';
+import { Baddie } from '../actors/baddie';
+import { Floor, Ground, Wall } from '../actors/ground';
+import { NPC } from '../actors/npc';
+import { Gate } from '../actors/gate';
+import { LevelLayout } from '../core/levelLayout';
+import { iSceneNode } from '../core/storyScene';
+import { Potion } from '../actors/potion';
+import { tileSize } from '../core/resources';
+import { Lift } from '../actors/lift';
 
 export class Example extends LevelLayout implements iSceneNode {
     thisScene = "example";

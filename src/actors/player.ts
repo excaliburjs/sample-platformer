@@ -1,9 +1,9 @@
 import * as ex from 'excalibur';
-import { girl, boy, Resources, tileSize } from './resources';
+import { girl, boy, Resources, tileSize } from '../core/resources';
 import { Baddie } from './baddie';
-import { stats } from './stats';
+import { stats } from '../core/stats';
 import { Ground } from './ground';
-import { iArtifact } from './iartifact';
+import { iArtifact } from '../core/iartifact';
 import { Lift } from './lift';
 
 export class Player extends ex.Actor {

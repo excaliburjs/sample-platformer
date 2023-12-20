@@ -1,4 +1,4 @@
-import { BeforeLevelScene, iSceneNode } from '../storyScene';
+import { BeforeLevelScene, iSceneNode } from '../core/storyScene';
 
 export class BeforeLevel1 extends BeforeLevelScene implements iSceneNode {
 

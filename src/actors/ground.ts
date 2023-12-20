@@ -1,6 +1,6 @@
 import * as ex from 'excalibur';
-import { grassFlatSprite, grassBelowSprite, tileSize } from './resources';
-import { iBox, iFloor, iWall } from './location';
+import { grassFlatSprite, grassBelowSprite, tileSize } from '../core/resources';
+import { iBox, iFloor, iWall } from '../core/location';
 
 export class Ground extends ex.Actor {
     constructor(args: iBox) {

@@ -1,6 +1,6 @@
 import * as ex from 'excalibur';
-import { iSceneNode } from '../storyScene';
-import { stats } from '../stats';
+import { iSceneNode } from '../core/storyScene';
+import { stats } from '../core/stats';
 
 export class GameOver extends ex.Scene implements iSceneNode {
     thisScene = "gameover";
@@ -26,7 +26,7 @@ export class GameOver extends ex.Scene implements iSceneNode {
         // }
     }
     onPostUpdate(engine: ex.Engine, _delta: number): void {
-        if(engine.input.keyboard.wasPressed(ex.Input.Keys.Space)) {
+        if (engine.input.keyboard.wasPressed(ex.Input.Keys.Space)) {
             stats.reset();
         }
     }

@@ -1,8 +1,8 @@
 import * as ex from 'excalibur';
-import { LevelLayout } from '../levelLayout';
-import { Floor, Wall } from '../ground';
-import { Gate } from '../gate';
-import { iSceneNode } from '../storyScene';
+import { LevelLayout } from '../core/levelLayout';
+import { Floor, Wall } from '../actors/ground';
+import { Gate } from '../actors/gate';
+import { iSceneNode } from '../core/storyScene';
 
 export class Level2 extends LevelLayout implements iSceneNode {
     thisScene = "level2";
