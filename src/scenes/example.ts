@@ -7,6 +7,7 @@ import { LevelLayout } from '../levelLayout';
 import { iSceneNode } from '../storyScene';
 import { Potion } from '../potion';
 import { tileSize } from '../resources';
+import { Lift } from '../lift';
 
 export class Example extends LevelLayout implements iSceneNode {
     thisScene = "example";
@@ -28,18 +29,17 @@ export class Example extends LevelLayout implements iSceneNode {
         engine.add(new Potion({ x: 1, y: 7, potionColor: "yellow" }));
 
         engine.add(new Ground({ x: 2 * 2, y: 3 * 2, down: 15.5 * 2, right: 2, scale: 0.5 }));
-        engine.add(new Floor({ x: 4, y: 5, right: 5 }));
 
         engine.add(new Floor({ x: 3, y: 13, right: 2 }));
         engine.add(new Floor({ x: 3, y: 16, right: 1 }));
         engine.add(new Potion({ x: 3, y: 16, potionColor: "purple" }));
+        engine.add(new Lift({ startPos: { x: 3, y: 6 }, endPos: { x: 14, y: 6 } }));
 
         this.playerStartsAt({ x: 4, y: 12 });
         engine.add(new Baddie({ x: 4, y: 15 }));
-        engine.add(new Floor({ x: 8, y: 11, right: 4 }));
         engine.add(new Baddie({ x: 8, y: 15 }));
-        engine.add(new NPC({ x: 9, y: 11 }));
-        engine.add(new Gate({ x: 9, y: 11, goal: 2 }));
+        engine.add(new Floor({ x: 11, y: 11, right: 4 }));
+        engine.add(new Gate({ x: 12, y: 11, goal: 2 }));
         engine.add(new Floor({ x: 14, y: 16, right: 1 }));
         engine.add(new Wall({ x: 15, y: 0, down: 20 }));
     }

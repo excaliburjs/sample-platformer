@@ -52,6 +52,7 @@ function sequence(scene: ex.Scene, actors: ex.Actor[]): void {
             scene.add(cur);
         } else {
             last.on(`sequence-${last.id}`, () => {
+                last.actions.moveBy(0, -90, 200).fade(0, 1000).die();
                 scene.add(cur);
             });
         }
@@ -68,18 +69,21 @@ export class PlayerSelect extends ex.Scene implements iSceneNode {
         engine.add(new SelectorButton(engine.drawWidth / 2 + 120, 365, girl, true));
         engine.add(new SelectorButton(engine.drawWidth / 2 - 120, 350, boy));
 
-        const bubble = new TextBubble({ x: 10, y: engine.drawHeight - 80, right: engine.drawWidth - 20, down: 80 },
-            [
-                "Hoi, ik ben Alan."
-            ]);
-        const bubble2 = new TextBubble({ x: 10, y: engine.drawHeight - 280, right: engine.drawWidth - 20, down: 80 },
-            [
-                "En ik ben Ada.",
-                "Je kan ons door het doolhof helpen met de pijltjes, de spatiebalk, en wat programmeren.\n" +
-                "Met wie wil jij door het doolhof?",
-                "Klik op degene met wie je wilt spelen."
-            ]);
-        sequence(this, [bubble, bubble2]);
+        const bubbleWidth = engine.drawWidth - 200
+        const alan = { x: 10, y: engine.drawHeight - 290, right: bubbleWidth, down: 80 };
+        const ada = { x: engine.drawWidth - 10 - bubbleWidth, y: engine.drawHeight - 290, right: bubbleWidth, down: 80 };
+        const bubbles = [
+            new TextBubble(alan, ["Hoi, ik ben Alan."]),
+            new TextBubble(ada, ["En ik ben Ada."]),
+            new TextBubble(alan,
+                [
+                    "Je kan ons door het doolhof helpen met de pijltjes, de spatiebalk,\n" +
+                    "en wat programmeren.\n" +
+                    "Met wie wil jij door het doolhof?"
+                ]),
+            new TextBubble(ada, ["Klik op degene met wie je wilt spelen."]),
+        ];
+        sequence(this, bubbles);
 
         // For the test harness to be predicable
         // if (!(window as any).__TESTING) {

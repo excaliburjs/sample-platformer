@@ -23,16 +23,17 @@ export class TextBubble extends ex.ScreenElement {
             font: new ex.Font({
                 quality: 4,
                 size: 20,
-                unit: ex.FontUnit.Px
+                unit: ex.FontUnit.Px,
             })
         });
         this.graphics.add('text', this.textGraph);
         this.graphics.show('text');
         this.graphics.onPreDraw = (ctx: ex.ExcaliburGraphicsContext) => {
             ctx.save();
-            ctx.z = -1;
+            ctx.z = this.z - 0.5;
             ctx.translate(0, -20);
-            ctx.drawRectangle(ex.vec(0, 0), bubble.right, bubble.down, ex.Color.White);
+            ctx.opacity = this.graphics.opacity;
+            ctx.drawRectangle(ex.vec(-5, 0), bubble.right+10, bubble.down, ex.Color.White, ex.Color.Black, 1);
             ctx.restore();
         };
         this.timer = new ex.Timer({
@@ -98,7 +99,7 @@ export class TextBubble extends ex.ScreenElement {
         this.timer.stop();
     }
     bubbleEnded() {
-        this.kill();
+        //this.kill();
         this.emit(`sequence-${this.id}`);
     }
 }

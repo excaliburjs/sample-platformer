@@ -16,6 +16,7 @@ const gateClosedFile = require('../res/Door_Closed_Dark_Top_Round.png');
 const gateOpenFile = require('../res/Door_Open_Dark_Top_Round.png');
 const grassFlatFile = require('../res/Grass_Tile_Flat.png');
 const grassBelowFile = require('../res/Grass_Tile_lower.png');
+const sandHalfFile = require('../res/Sand_Tile_Half_Round-01.png');
 const potionPurpleFile = require('../res/Potion_Sm_Purple.png');
 const potionYellowFile = require('../res/Potion_Sm_Yellow.png');
 const blockFile = require('../res/block.png');
@@ -40,6 +41,7 @@ const Resources = {
     gateClosed: new ex.ImageSource(gateClosedFile),
     grassFlat: new ex.ImageSource(grassFlatFile),
     grassBelow: new ex.ImageSource(grassBelowFile),
+    sandHalf: new ex.ImageSource(sandHalfFile),
     potionPurple: new ex.ImageSource(potionPurpleFile),
     potionYellow: new ex.ImageSource(potionYellowFile),
     block: new ex.ImageSource(blockFile),
@@ -181,6 +183,7 @@ const potionYellowSprite = Resources.potionYellow.toSprite();
 const blockSprite = Resources.block.toSprite();
 const grassFlatSprite = Resources.grassFlat.toSprite();
 const grassBelowSprite = Resources.grassBelow.toSprite();
+const sandHalfSprite = Resources.sandHalf.toSprite();
 const npcSprite = Resources.npc.toSprite();
 
 for (const res in Resources) {
@@ -197,5 +200,6 @@ export {
     potionPurpleSprite, potionYellowSprite,
     blockSprite,
     grassFlatSprite, grassBelowSprite,
+    sandHalfSprite,
     npcSprite
 }

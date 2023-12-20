@@ -4,6 +4,7 @@ import { Baddie } from './baddie';
 import { stats } from './stats';
 import { Ground } from './ground';
 import { iArtifact } from './iartifact';
+import { Lift } from './lift';
 
 export class Player extends ex.Actor {
     public onGround = true;
@@ -12,6 +13,7 @@ export class Player extends ex.Actor {
     public hurt = false;
     public hurtTime: number = 0;
     public scaleTarget: number = 1;
+    public groundVel: ex.Vector = ex.Vector.Zero;
 
     constructor(x: number, y: number) {
         super({
@@ -78,8 +80,12 @@ export class Player extends ex.Actor {
     onPostCollision(evt: ex.PostCollisionEvent) {
         // Bot has collided with it's Top of another collider
         //console.log(evt.other.name);
+        this.groundVel = ex.Vector.Zero;
         if (evt.side === ex.Side.Bottom && evt.other instanceof Ground) {
             this.onGround = true;
+        } else if (evt.side === ex.Side.Bottom && evt.other instanceof Lift) {
+            this.onGround = true;
+            this.groundVel = evt.other.vel;
         }
 
         // Bot has collided on the side, display hurt animation
@@ -130,13 +136,12 @@ export class Player extends ex.Actor {
         } else {
             // Reset x velocity
             this.vel.x = 0;
+            this.vel = this.vel.add(this.groundVel);
             // Player input
             if (engine.input.keyboard.isHeld(ex.Input.Keys.Left)) {
-                this.vel.x = -200 * this.scaleTarget;
-            }
-
-            if (engine.input.keyboard.isHeld(ex.Input.Keys.Right)) {
-                this.vel.x = 200 * this.scaleTarget;
+                this.vel.x -= 200 * this.scaleTarget;
+            } else if (engine.input.keyboard.isHeld(ex.Input.Keys.Right)) {
+                this.vel.x += 200 * this.scaleTarget;
             }
 
             if (engine.input.keyboard.wasPressed(ex.Input.Keys.Space) && this.atArtifact !== null) {
@@ -152,18 +157,17 @@ export class Player extends ex.Actor {
 
         // Change animation based on velocity
         if (!this.hurt) {
+            let relvel = this.vel.sub(this.groundVel);
             if (this.onGround) {
-                if (this.vel.x < 0) {
+                if (relvel.x === 0) {
+                    this.graphics.use("idle")
+                } else if (relvel.x < 0) {
                     this.graphics.use("left");
-                }
-                if (this.vel.x > 0) {
+                } else if (relvel.x > 0) {
                     this.graphics.use("right");
                 }
-                if (this.vel.x === 0) {
-                    this.graphics.use("idle")
-                }
             } else {
-                if (this.vel.x < 0) {
+                if (relvel.x < 0) {
                     this.graphics.use("jumpleft");
                 } else {
                     this.graphics.use("jumpright");
