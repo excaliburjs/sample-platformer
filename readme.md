@@ -1,8 +1,10 @@
-# Excalibur Platformer Sample
+# Alan & Ada kids programming
 
 Play sample [here](https://excaliburjs.com/sample-platformer)
 
-![sample-animation](./assets/sample.gif)
+## Start editing!
+
+Go to https://vscode.dev/github/WimYedema/platform-game
 
 ## Running locally
 
@@ -16,3 +18,9 @@ Play sample [here](https://excaliburjs.com/sample-platformer)
 
 * Run `npm run build:dev` to produce javascript bundles for debugging in the `dist/` folder
 * Run `npm run build:prod` to produce javascript bundles for production (minified) in the `dist/` folder
+
+# Credits
+
+* Code is based on the sample platform game of [ExcaliburJS](https://excaliburjs.com)
+* Tiles from: [Platform Asset Pack By Cam Tatz (@CamTatz)](https://opengameart.org/content/platformer-asset-pack-1)
+* Alan and Ada from: [Game Art 2D](https://www.gameart2d.com/freebies.html)
