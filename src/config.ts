@@ -6,7 +6,7 @@ export const Config = {
   npcPatrolDelay: 1000,
   npcPatrolSpeed: 40,
   playerMoveSpeed: 50,
-  playerJumpVelocity: -225,
+  playerJumpVelocity: -305,
   cameraElasticity: 0.05,
   cameraFriction: 0.1,
 };

@@ -1,5 +1,5 @@
 import { ImageSource, Loader, Sound, SpriteSheet, Animation } from "excalibur";
-import { TiledMapResource } from "@excaliburjs/plugin-tiled";
+import { TiledResource } from "@excaliburjs/plugin-tiled";
 
 import jumpSound from "../res/jump.wav";
 import hitSound from "../res/hurt.wav";
@@ -12,7 +12,7 @@ export const Resources = {
   jump: new Sound(jumpSound),
   hit: new Sound(hitSound),
   gotEm: new Sound(gotEmSound),
-  level: new TiledMapResource(levelFile),
+  level: new TiledResource(levelFile),
 };
 
 export const loader = new Loader();
@@ -53,15 +53,15 @@ export const NpcGraphics = {
 NpcGraphics.right.flipHorizontal = true;
 
 export const initializeLevelMap = (scene: ex.Scene) => {
-  Resources.level.addTiledMapToScene(scene);
+  Resources.level.addToScene(scene);
 
-  const gameLayer = Resources.level.data.getObjectLayerByName("Game");
+  const gameLayer = Resources.level.getObjectLayers().find(l => l.name ==="Game")!;
 
-  const playerObject = gameLayer.getObjectByClass("Player")!;
-  const npcObjects = gameLayer.getObjectsByClass("NPC")!;
+  const playerObject = gameLayer.getObjectsByName("Player")[0]!;
+  const npcObjects = gameLayer.getObjectsByClassName("NPC")!;
 
-  const baddieLayer = Resources.level.data.getObjectLayerByName("Baddies")!;
-  const baddieObjects = baddieLayer.getObjectsByClass("Baddie")!;
+  const baddieLayer = Resources.level.getObjectLayers().find(l => l.name === "Baddies")!;
+  const baddieObjects = baddieLayer.getObjectsByClassName("Baddie")!;
 
   return {
     playerObject,

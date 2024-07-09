@@ -11,7 +11,7 @@ export class Level extends Scene {
   constructor() {
     super();
 
-    this.world.add(new PatrolSystem());
+    this.world.add(PatrolSystem);
   }
 
   onInitialize() {
@@ -33,8 +33,8 @@ export class Level extends Scene {
         new NPC(
           npcObject.x,
           npcObject.y,
-          npcObject.getProperty<number>("patrol_left")?.value ?? 0,
-          npcObject.getProperty<number>("patrol_right")?.value ?? 0
+          npcObject.properties.get("patrol_left") as number ?? 0,
+          npcObject.properties.get("patrol_right") as number ?? 0
         )
       );
     }
@@ -44,14 +44,17 @@ export class Level extends Scene {
         new Baddie(
           baddieObject.x,
           baddieObject.y,
-          baddieObject.getProperty<number>("patrol_left")?.value ?? 0,
-          baddieObject.getProperty<number>("patrol_right")?.value ?? 0
+          baddieObject.properties.get("patrol_left") as number ?? 0,
+          baddieObject.properties.get("patrol_right") as number ?? 0
         )
       );
     }
 
     this.add(
       new OneWayPlatform(player.pos.x, player.pos.y - 20, 50, 5)
+    )
+    this.add(
+      new OneWayPlatform(player.pos.x, player.pos.y - 20 - 30, 50, 5)
     )
   }
 }

@@ -7,8 +7,10 @@ const game = new Engine({
   backgroundColor: Color.fromHex("#5fcde4"),
   width: 600,
   height: 400,
-  antialiasing: false,
-  displayMode: DisplayMode.FitScreen,
+  pixelRatio: 4,
+  pixelArt: true,
+  displayMode: DisplayMode.FitScreenAndFill,
+  fixedUpdateFps: 60
 });
 
 await game.start(loader);

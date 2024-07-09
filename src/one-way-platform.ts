@@ -1,4 +1,6 @@
-import { Actor, ColliderComponent, CollisionType, Color, Engine, Entity, Shape, vec } from "excalibur";
+import { Actor, ColliderComponent, CollisionGroupManager, CollisionType, Color, Engine, Entity, Shape, vec } from "excalibur";
+
+const platformGroup = CollisionGroupManager.create('platform');
 
 export class OneWayPlatform extends Actor {
     private _sensor!: Entity;
@@ -9,14 +11,16 @@ export class OneWayPlatform extends Actor {
             width,
             height,
             color: Color.Red,
-            collisionType: CollisionType.Passive
+            collisionType: CollisionType.Passive,
+            collisionGroup: platformGroup
         });
     }
 
     onInitialize(_engine: Engine): void {
         this._sensor = new Actor({
-            y: -20,
-            collider: Shape.Box(this.width, 10, vec(0.5, 1))
+            y: -22,
+            collider: Shape.Box(this.width, 10, vec(0.5, 1)),
+            collisionGroup: platformGroup
         });
 
         const collider = this._sensor.get(ColliderComponent)!;

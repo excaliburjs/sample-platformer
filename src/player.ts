@@ -10,6 +10,7 @@ export class Player extends ex.Actor {
     super({
       name: "Player",
       pos: new ex.Vector(x, y),
+      z: 99,
       collisionGroup: collisionGroups.player,
       collisionType: ex.CollisionType.Active,
       collider: makeCharacterCollider(),

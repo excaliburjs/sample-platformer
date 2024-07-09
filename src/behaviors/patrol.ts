@@ -8,9 +8,7 @@ export interface PatrolComponentArgs {
   to: ex.Vector;
 }
 
-export class PatrolComponent extends ex.Component<"patrol"> {
-  public readonly type = "patrol";
-
+export class PatrolComponent extends ex.Component {
   public speed = 50;
   public delay = 1000;
   public from = ex.Vector.Zero;
@@ -57,14 +55,16 @@ export class PatrolComponent extends ex.Component<"patrol"> {
   }
 }
 
-export class PatrolSystem extends ex.System<
-  PatrolComponent | ex.ActionsComponent
-> {
-  public readonly types = ["patrol"] as const;
+export class PatrolSystem extends ex.System  {
   public readonly systemType = ex.SystemType.Update;
+  query: ex.Query<typeof PatrolComponent>;
+  constructor(world: ex.World) {
+    super()
+    this.query = world.query([PatrolComponent]);
+  }
 
-  public update(entities: ex.Entity[], delta: number) {
-    for (const entity of entities) {
+  public update(delta: number) {
+    for (const entity of this.query.entities) {
       this.initializePatrol(entity, delta);
     }
   }

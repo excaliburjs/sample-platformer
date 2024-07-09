@@ -15,6 +15,7 @@ export class Baddie extends ex.Actor {
     super({
       name: "Baddie",
       pos: new ex.Vector(x, y),
+      z: 98,
       collisionGroup: collisionGroups.enemy,
       collisionType: ex.CollisionType.Active,
       collider: makeCharacterCollider(-1),

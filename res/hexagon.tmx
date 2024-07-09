@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.10.1" orientation="hexagonal" renderorder="right-down" width="10" height="10" tilewidth="120" tileheight="140" infinite="0" hexsidelength="70" staggeraxis="y" staggerindex="odd" nextlayerid="2" nextobjectid="1">
+ <tileset firstgid="1" name="kenny-hexagons" tilewidth="120" tileheight="140" tilecount="238" columns="17">
+  <image source="../../tiled-parser/kenney_hexagon-pack/Spritesheets/hexagonAll_sheet.png" width="2048" height="2048"/>
+ </tileset>
+ <layer id="1" name="Tile Layer 1" width="10" height="10">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,
+1,1,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+</map>
