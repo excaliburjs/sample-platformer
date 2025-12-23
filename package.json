@@ -13,7 +13,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "excalibur": "0.28.1"
+    "excalibur": "0.32.0"
   },
   "devDependencies": {
     "@excaliburjs/testing": "0.25.0",
