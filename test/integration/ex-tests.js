@@ -5,7 +5,9 @@ test('A sample platformer', async (page) => {
         window.__TESTING = true;
     });
     await expectLoaded();
-    await page.waitForTimeout(500);
 
-    await expectPage('Platfomer', './test/integration/images/actual-platformer.png').toBe('./test/integration/images/expected-platformer.png');
+    // Wait for game to initialize and render
+    await new Promise(resolve => setTimeout(resolve, 1000));
+
+    await expectPage('Platformer', './test/integration/images/actual-platformer.png').toBe('./test/integration/images/expected-platformer.png');
 });

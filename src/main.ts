@@ -1,18 +1,19 @@
-import * as ex from 'excalibur';
+import{Engine, Color, vec}from 'excalibur';
 import { loader } from './resources';
 import { Level } from './level';
 
-const engine = new ex.Engine({
-    backgroundColor: ex.Color.fromHex('#5fcde4'),
+const engine = new Engine({
+    backgroundColor: Color.fromHex('#5fcde4'),
     width: 600,
     height: 400,
     fixedUpdateFps: 60,
     // Turn off anti-aliasing for pixel art graphics
-    antialiasing: false
+    antialiasing: false,
+    physics: {
+        // Set global gravity, 800 pixels/sec^2
+        gravity: vec(0, 800)
+    }
 });
-
-// Set global gravity, 800 pixels/sec^2
-ex.Physics.acc = new ex.Vector(0, 800);
 
 // Setup first level as a custom scene
 const level = new Level();

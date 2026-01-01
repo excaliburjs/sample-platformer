@@ -1,6 +1,6 @@
 {
     "container": {
-        "node": "16",
+        "node": "24",
         "port": 9000
     }
 }
