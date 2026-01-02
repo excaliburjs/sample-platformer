@@ -1,28 +1,21 @@
-import * as ex from 'excalibur';
+import { ImageSource, Sound, SpriteSheet, Loader } from 'excalibur';
 
-const botFile = require('../res/excalibot.png');
-const botRedFile = require('../res/excalibot-red.png');
-const baddieFile = require('../res/baddie.png');
-const blockFile = require('../res/block.png');
-const npcFile = require('../res/npc.png');
-const jumpSound = require('../res/jump.wav');
-const hitSound = require('../res/hurt.wav');
-const gotEmSound = require('../res/gottem.wav');
 
+// Ensure all resource paths are correct relative to the built output (webpack config)
 const Resources = {
-    bot: new ex.ImageSource(botFile),
-    botRed: new ex.ImageSource(botRedFile),
-    baddie: new ex.ImageSource(baddieFile),
-    block: new ex.ImageSource(blockFile),
-    npc: new ex.ImageSource(npcFile),
-    jump: new ex.Sound(jumpSound),
-    hit: new ex.Sound(hitSound),
-    gotEm: new ex.Sound(gotEmSound)
+    bot: new ImageSource('../res/excalibot.png'),
+    botRed: new ImageSource('../res/excalibot-red.png'),
+    baddie: new ImageSource('../res/baddie.png'),
+    block: new ImageSource('../res/block.png'),
+    npc: new ImageSource('../res/npc.png'),
+    jump: new Sound('../res/jump.wav'),
+    hit: new Sound('../res/hurt.wav'),
+    gotEm: new Sound('../res/gottem.wav')
 }
 
-const loader = new ex.Loader();
+const loader = new Loader();
 
-const botSpriteSheet = ex.SpriteSheet.fromImageSource({
+const botSpriteSheet = SpriteSheet.fromImageSource({
     image:Resources.bot, 
     grid: { 
         columns: 8,
@@ -31,7 +24,7 @@ const botSpriteSheet = ex.SpriteSheet.fromImageSource({
         spriteHeight: 32
     }
 });
-const botRedSpriteSheet = ex.SpriteSheet.fromImageSource({
+const botRedSpriteSheet = SpriteSheet.fromImageSource({
     image: Resources.botRed,
     grid: {
         columns: 8, 
@@ -40,7 +33,7 @@ const botRedSpriteSheet = ex.SpriteSheet.fromImageSource({
         spriteHeight: 32
     }
 });
-const baddieSpriteSheet = ex.SpriteSheet.fromImageSource({
+const baddieSpriteSheet = SpriteSheet.fromImageSource({
     image: Resources.baddie,
     grid: {
         columns: 6, 
@@ -52,8 +45,8 @@ const baddieSpriteSheet = ex.SpriteSheet.fromImageSource({
 const blockSprite = Resources.block.toSprite();
 const npcSprite = Resources.npc.toSprite();
 
-for (const res in Resources) {
-    loader.addResource((Resources as any)[res]);
+for (const resource of Object.values(Resources)) {
+    loader.addResource(resource);
 }
 
 export { Resources, loader, botSpriteSheet, botRedSpriteSheet, baddieSpriteSheet, blockSprite, npcSprite }

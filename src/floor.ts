@@ -1,26 +1,44 @@
-import * as ex from 'excalibur';
-import { ExcaliburGraphicsContext } from 'excalibur';
 import { blockSprite } from './resources';
+import { 
+    Actor,
+    CollisionGroupManager, 
+    CollisionType, 
+    GraphicsGroup, 
+    Shape, 
+    vec, 
+    Vector 
+} from 'excalibur';
 
-export class Floor extends ex.Actor {
+export class Floor extends Actor {
     constructor(x: number, y: number, public cols: number, public rows: number) {
         super({
             name: 'Floor',
-            pos: new ex.Vector(x, y),
-            scale: new ex.Vector(2, 2),
-            anchor: ex.Vector.Zero,
-            collider: ex.Shape.Box(20 * cols, 15 * rows, ex.Vector.Zero),
-            collisionType: ex.CollisionType.Fixed,
-            collisionGroup: ex.CollisionGroupManager.groupByName("floor"),
+            pos: vec(x, y),
+            scale: vec(2, 2),
+            anchor: Vector.Zero,
+            collider: Shape.Box(20 * cols, 15 * rows, Vector.Zero),
+            collisionType: CollisionType.Fixed,
+            collisionGroup: CollisionGroupManager.groupByName("floor"),
         });
 
-        for (let i = 0; i < this.cols; i++) {
-            for (let j = 0; j < this.rows; j++) {
-                this.graphics.show(blockSprite, { 
-                    anchor: ex.Vector.Zero,
-                    offset: ex.vec(i * blockSprite.width, j * blockSprite.height)
-                })
+        // build an array of members for the GraphicsGroup
+        const members = [];
+
+        for (let i = 0; i < cols; i++) {
+            for (let j = 0; j < rows; j++) {
+                members.push({
+                    graphic: blockSprite,
+                    offset: vec(i * blockSprite.width, j * blockSprite.height)
+                });
             }
         }
+
+        // create a GraphicsGroup and use it on this actor
+        const group = new GraphicsGroup({
+            useAnchor: false, // position tiles relative to top-left of the actor
+            members
+        });
+
+        this.graphics.use(group); // use GraphicsGroup instead of show()
     }
 }

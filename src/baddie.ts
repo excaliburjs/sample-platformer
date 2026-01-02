@@ -1,27 +1,38 @@
-import * as ex from 'excalibur';
 import { baddieSpriteSheet, Resources } from "./resources";
 import { Bot } from './bot';
+import { 
+    Actor,
+    CollisionGroupManager,
+    CollisionType,
+    Shape,
+    vec, 
+    Vector,
+    Engine,
+    PostCollisionEvent,
+    Side,
+    Animation,
+} from 'excalibur';
 
-export class Baddie extends ex.Actor {
+export class Baddie extends Actor {
     constructor(x: number, y: number, public dir: number) {
         super({
             name: 'Baddie',
-            pos: new ex.Vector(x, y),
-            collisionGroup: ex.CollisionGroupManager.groupByName("enemy"),
-            collisionType: ex.CollisionType.Active,
-            collider: ex.Shape.Box(32, 50, ex.Vector.Half, ex.vec(0, -1)) 
+            pos: vec(x, y),
+            collisionGroup: CollisionGroupManager.groupByName("enemy"),
+            collisionType: CollisionType.Active,
+            collider: Shape.Box(32, 50, Vector.Half, vec(0, -1)) 
         });
     }
 
     // OnInitialize is called before the 1st actor update
-    onInitialize(engine: ex.Engine) {
+    onInitialize(engine: Engine) {
         // Initialize actor
 
         // Setup visuals
-        const left = ex.Animation.fromSpriteSheet(baddieSpriteSheet, [2, 3, 4, 5], 100);
-        left.scale = new ex.Vector(2, 2);
-        const right = ex.Animation.fromSpriteSheet(baddieSpriteSheet, [2, 3, 4, 5], 100);
-        right.scale = new ex.Vector(2, 2);
+        const left = Animation.fromSpriteSheet(baddieSpriteSheet, [2, 3, 4, 5], 100);
+        left.scale = vec(2, 2);
+        const right = Animation.fromSpriteSheet(baddieSpriteSheet, [2, 3, 4, 5], 100);
+        right.scale = vec(2, 2);
         right.flipHorizontal = true;
 
         // Register animation
@@ -47,17 +58,17 @@ export class Baddie extends ex.Actor {
         this.on('postcollision', (evt) => this.onPostCollision(evt));
     }
 
-    onPostCollision(evt: ex.PostCollisionEvent) {
-        if (evt.other instanceof Bot && evt.side === ex.Side.Top) {
+    onPostCollision(evt: PostCollisionEvent) {
+        if (evt.other.owner instanceof Bot && evt.side === Side.Top) {
             Resources.gotEm.play(.1);
             // Clear patrolling
             this.actions.clearActions();
             // Remove ability to collide
-            this.body.collisionType = ex.CollisionType.PreventCollision;
+            this.body.collisionType = CollisionType.PreventCollision;
 
             // Launch into air with rotation
-            this.vel = new ex.Vector(0, -300);
-            this.acc = ex.Physics.acc;
+            this.vel = vec(0, -300);
+            this.acc = vec(0, 800);
             this.angularVelocity = 2;
         }
     }

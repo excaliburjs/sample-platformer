@@ -1,42 +1,42 @@
-import * as ex from 'excalibur';
-import { botRedSpriteSheet, Resources, npcSprite } from './resources';
+import {Actor, Animation, CollisionGroupManager, Engine, Shape, Vector, CollisionType, vec} from 'excalibur';
+import { botRedSpriteSheet, npcSprite } from './resources';
 
-export class NPC extends ex.Actor {
+export class NPC extends Actor {
     public onGround = true;
     public hurt = false;
     public hurtTime: number = 0;
     constructor(x: number, y: number) {
         super({
-            pos: new ex.Vector(x, y),
-            collisionType: ex.CollisionType.Active,
-            collisionGroup: ex.CollisionGroupManager.groupByName("player"),
-            collider: ex.Shape.Box(32, 50, ex.Vector.Half, ex.vec(0, 3))
+            pos: vec(x, y),
+            collisionType: CollisionType.Active,
+            collisionGroup: CollisionGroupManager.groupByName("player"),
+            collider: Shape.Box(32, 50, Vector.Half, vec(0, 3))
         });
     }
 
     // OnInitialize is called before the 1st actor update
-    onInitialize(engine: ex.Engine) {
+    onInitialize(engine: Engine) {
         // Initialize actor
 
         // Set the z-index to be behind everything
         this.z = -1;
 
         // Setup visuals
-        const hurtleft = ex.Animation.fromSpriteSheet(botRedSpriteSheet, [0, 1, 0, 1, 0, 1], 150);
-        hurtleft.scale = new ex.Vector(2, 2);
+        const hurtleft = Animation.fromSpriteSheet(botRedSpriteSheet, [0, 1, 0, 1, 0, 1], 150);
+        hurtleft.scale = vec(2, 2);
 
-        const hurtright = ex.Animation.fromSpriteSheet(botRedSpriteSheet, [0, 1, 0, 1, 0, 1], 150);
-        hurtright.scale = new ex.Vector(2, 2);
+        const hurtright = Animation.fromSpriteSheet(botRedSpriteSheet, [0, 1, 0, 1, 0, 1], 150);
+        hurtright.scale = vec(2, 2);
         hurtright.flipHorizontal = true;
 
-        const idle = ex.Animation.fromSpriteSheet(botRedSpriteSheet, [2, 3], 800);
-        idle.scale = new ex.Vector(2, 2);
+        const idle = Animation.fromSpriteSheet(botRedSpriteSheet, [2, 3], 800);
+        idle.scale = vec(2, 2);
 
-        const left = ex.Animation.fromSpriteSheet(botRedSpriteSheet, [3, 4, 5, 6, 7], 100);
-        left.scale = new ex.Vector(2, 2);
+        const left = Animation.fromSpriteSheet(botRedSpriteSheet, [3, 4, 5, 6, 7], 100);
+        left.scale = vec(2, 2);
 
-        const right = ex.Animation.fromSpriteSheet(botRedSpriteSheet, [3, 4, 5, 6, 7], 100);
-        right.scale = new ex.Vector(2, 2);
+        const right = Animation.fromSpriteSheet(botRedSpriteSheet, [3, 4, 5, 6, 7], 100);
+        right.scale = vec(2, 2);
         right.flipHorizontal = true;
 
         // Register drawings
@@ -64,7 +64,7 @@ export class NPC extends ex.Actor {
 
     }
 
-    onPostUpdate(engine: ex.Engine, delta: number) {
+    onPostUpdate(engine: Engine, delta: number) {
         if (this.vel.x < 0) {
             this.graphics.use("left");
         }
