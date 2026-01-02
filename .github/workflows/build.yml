@@ -25,6 +25,11 @@ jobs:
         with:
           submodules: recursive
 
+      - name: Install Chromium dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y chromium-browser
+
       # Runs a single command using the runners shell
       - name: Build Platformer
         run: |
