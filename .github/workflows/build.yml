@@ -37,6 +37,8 @@ jobs:
           npm run build:prod
           npm run test
         env:
+          CHROME_BIN: /usr/bin/chromium-browser
+          CHROMIUM_FLAGS: '--no-sandbox --disable-setuid-sandbox'
           PUPPETEER_ARGS: '--no-sandbox --disable-setuid-sandbox'
       # Runs a set of commands using the runners shell
       - name: Deploy to GitHub Pages
