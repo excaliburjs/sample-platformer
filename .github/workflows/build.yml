@@ -44,7 +44,7 @@ jobs:
       - name: Deploy to GitHub Pages
         # You may pin to the exact commit or the version.
         # uses: JamesIves/github-pages-deploy-action@164583b9e44b4fc5910e78feb607ea7c98d3c7b9
-        uses: JamesIves/github-pages-deploy-action@4.1.1
+        uses: JamesIves/github-pages-deploy-action@v4.8.0
         with:
           # This is the branch you wish to deploy to, for example gh-pages or docs.
           branch: gh-pages
